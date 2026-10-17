@@ -1,0 +1,696 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Naishadh Vytla Portfolio</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<meta name="description" content="Naishadh Vytla is an AI/ML engineer and final-year ECE student at KL University working on generative AI, computer vision and calibrated, trustworthy machine learning.">
+<meta name="theme-color" content="#080810">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Naishadh Vytla Portfolio">
+<meta property="og:description" content="AI/ML engineer working on generative AI, computer vision and calibrated, trustworthy machine learning.">
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Anton&family=IBM+Plex+Mono:wght@400;500;600&family=Permanent+Marker&family=Sora:wght@300;400;600;700;800&display=swap">
+<link rel="stylesheet" href="css/style.css">
+<script>
+  /* Decide the motion level before first paint so the cover never flashes. */
+  (function () {
+    var calm = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    try { var saved = localStorage.getItem('nv-motion'); if (saved) calm = saved === 'calm'; } catch (e) {}
+    document.documentElement.dataset.motion = calm ? 'calm' : 'full';
+    document.documentElement.classList.add('js');
+  })();
+</script>
+</head>
+<body>
+
+<a class="skip" href="#main">Skip to content</a>
+<div class="loadbar" aria-hidden="true"><span></span></div>
+
+<!-- ============ SPRITE ============ -->
+<svg class="sprite" aria-hidden="true" focusable="false">
+  <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M4 12h15M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="square"/></symbol>
+  <symbol id="i-ext" viewBox="0 0 24 24"><path d="M7 17 17 7M9 7h8v8" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="square"/></symbol>
+  <symbol id="i-copy" viewBox="0 0 24 24"><path d="M8 8h11v11H8zM5 16V5h11" fill="none" stroke="currentColor" stroke-width="2.2"/></symbol>
+  <symbol id="i-close" viewBox="0 0 24 24"><path d="M5 5l14 14M19 5 5 19" fill="none" stroke="currentColor" stroke-width="2.6"/></symbol>
+  <symbol id="i-plus" viewBox="0 0 24 24"><path d="M12 4v16M4 12h16" fill="none" stroke="currentColor" stroke-width="2.6"/></symbol>
+  <!-- power-system icons -->
+  <symbol id="i-genai" viewBox="0 0 32 32"><path d="M5 7h22v14H14l-6 5v-5H5z" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linejoin="round"/><path d="M16 10.5l1.2 2.8 2.8 1.2-2.8 1.2L16 18.5l-1.2-2.8-2.8-1.2 2.8-1.2z" fill="currentColor"/></symbol>
+  <symbol id="i-vision" viewBox="0 0 32 32"><path d="M3 16s5-8 13-8 13 8 13 8-5 8-13 8S3 16 3 16z" fill="none" stroke="currentColor" stroke-width="2.2"/><circle cx="16" cy="16" r="4.5" fill="none" stroke="currentColor" stroke-width="2.2"/><path d="M9 4h4M19 4h4M9 28h4M19 28h4" stroke="currentColor" stroke-width="2"/></symbol>
+  <symbol id="i-trust" viewBox="0 0 32 32"><path d="M5 27V5" stroke="currentColor" stroke-width="2"/><path d="M5 27h22" stroke="currentColor" stroke-width="2"/><path d="M6 26 26 6" stroke="currentColor" stroke-width="1.6" stroke-dasharray="2.5 2.5"/><path d="M8 25h3v-3H8zM13 25h3v-8h-3zM18 25h3v-12h-3zM23 25h3v-15h-3z" fill="currentColor"/></symbol>
+  <symbol id="i-graph" viewBox="0 0 32 32"><circle cx="7" cy="8" r="3" fill="currentColor"/><circle cx="25" cy="7" r="3" fill="currentColor"/><circle cx="16" cy="17" r="3.5" fill="none" stroke="currentColor" stroke-width="2.2"/><circle cx="8" cy="26" r="3" fill="currentColor"/><circle cx="25" cy="25" r="3" fill="currentColor"/><path d="M9 10l5 5M23 9l-5 6M10 24l4-5M23 23l-5-4" stroke="currentColor" stroke-width="2"/></symbol>
+  <symbol id="i-data" viewBox="0 0 32 32"><path d="M4 28h24M4 28V4" stroke="currentColor" stroke-width="2"/><circle cx="9" cy="22" r="2" fill="currentColor"/><circle cx="13" cy="18" r="2" fill="currentColor"/><circle cx="12" cy="23" r="2" fill="currentColor"/><circle cx="18" cy="14" r="2" fill="currentColor"/><circle cx="21" cy="15" r="2" fill="currentColor"/><circle cx="24" cy="9" r="2" fill="currentColor"/><path d="M6 25 27 6" stroke="currentColor" stroke-width="1.4" stroke-dasharray="3 2"/></symbol>
+  <symbol id="i-ship" viewBox="0 0 32 32"><path d="M6 10 16 5l10 5v12l-10 5-10-5z" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linejoin="round"/><path d="M6 10l10 5 10-5M16 15v12" fill="none" stroke="currentColor" stroke-width="2.2"/></symbol>
+  <!-- collectible emblems -->
+  <symbol id="e-bolt" viewBox="0 0 48 48"><path d="M27 4 9 27h13l-3 17 20-25H26z" fill="currentColor"/></symbol>
+  <symbol id="e-chart" viewBox="0 0 48 48"><path d="M6 42h36" stroke="currentColor" stroke-width="3.5"/><path d="M9 38h7V26H9zM20 38h7V16h-7zM31 38h7V8h-7z" fill="currentColor"/></symbol>
+  <symbol id="e-chip" viewBox="0 0 48 48"><rect x="12" y="12" width="24" height="24" fill="none" stroke="currentColor" stroke-width="3.5"/><rect x="19" y="19" width="10" height="10" fill="currentColor"/><path d="M18 4v8M24 4v8M30 4v8M18 36v8M24 36v8M30 36v8M4 18h8M4 24h8M4 30h8M36 18h8M36 24h8M36 30h8" stroke="currentColor" stroke-width="3"/></symbol>
+  <symbol id="e-cloud" viewBox="0 0 48 48"><path d="M14 36h22a8 8 0 0 0 0-16 12 12 0 0 0-23-2A9 9 0 0 0 14 36z" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linejoin="round"/><path d="M20 28l4-6 4 6M24 22v12" fill="none" stroke="currentColor" stroke-width="3"/></symbol>
+  <symbol id="e-gear" viewBox="0 0 48 48"><circle cx="24" cy="24" r="7" fill="none" stroke="currentColor" stroke-width="3.5"/><path d="M24 4v8M24 36v8M4 24h8M36 24h8M10 10l6 6M32 32l6 6M38 10l-6 6M16 32l-6 6" stroke="currentColor" stroke-width="4"/></symbol>
+  <symbol id="e-peak" viewBox="0 0 48 48"><path d="M3 42 18 14l8 13 5-7 14 22z" fill="currentColor"/><path d="M18 6v8M18 6h9l-2 3 2 3h-9" fill="none" stroke="currentColor" stroke-width="2.5"/></symbol>
+</svg>
+
+<!-- ============ NAV ============ -->
+<header class="nav" id="nav">
+  <a class="brand" href="#cover" aria-label="Naishadh Vytla, back to the cover">
+    <span class="brand-badge" aria-hidden="true">NV</span>
+    <span class="brand-meta mono" aria-hidden="true"><b>Naishadh Vytla</b><span class="brand-status">Loading issue…</span></span>
+  </a>
+  <nav class="nav-links" aria-label="Primary">
+    <ul>
+      <li><a href="#about">Origin</a></li>
+      <li><a href="#research">Research</a></li>
+      <li><a href="#projects">Multiverse</a></li>
+      <li><a href="#skills">Powers</a></li>
+      <li><a href="#timeline">Timeline</a></li>
+      <li><a href="#achievements">Collectibles</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </nav>
+  <div class="nav-tools">
+    <button class="fx-toggle mono" id="fx-toggle" type="button" aria-pressed="true" data-tip="Turn animation off">
+      <span class="fx-dot" aria-hidden="true"></span>FX <span class="fx-state">On</span>
+    </button>
+    <button class="menu-btn mono" id="menu-btn" type="button" aria-haspopup="dialog" aria-controls="menu">
+      <span class="menu-bars" aria-hidden="true"><i></i><i></i><i></i></span>Menu
+    </button>
+  </div>
+</header>
+
+<dialog class="menu" id="menu" aria-label="Site menu">
+  <div class="menu-head">
+    <span class="mono">Jump to a chapter</span>
+    <button class="icon-btn" type="button" data-close aria-label="Close menu"><svg><use href="#i-close"/></svg></button>
+  </div>
+  <ol class="menu-list">
+    <li style="--c: var(--crimson)"><a href="#about"><small>Ch.1</small>Origin story</a></li>
+    <li style="--c: var(--cyan)"><a href="#research"><small>Ch.2</small>Research verse</a></li>
+    <li style="--c: var(--yellow)"><a href="#projects"><small>Ch.3</small>Multiverse</a></li>
+    <li style="--c: var(--violet)"><a href="#skills"><small>Ch.4</small>Power system</a></li>
+    <li style="--c: var(--magenta)"><a href="#timeline"><small>Ch.5</small>Timeline</a></li>
+    <li style="--c: var(--paper)"><a href="#achievements"><small>Ch.6</small>Collectibles</a></li>
+    <li style="--c: var(--crimson)"><a href="#contact"><small>Ch.7</small>Final panel</a></li>
+  </ol>
+</dialog>
+
+<main id="main">
+
+<!-- ============ COVER ============ -->
+<section class="hero" id="cover" aria-labelledby="hero-name">
+  <div class="hero-sky" aria-hidden="true">
+    <div class="layer layer--glow"></div>
+    <div class="layer layer--speed" data-depth="0.12"></div>
+    <div class="layer layer--portal" data-depth="0.3"><svg class="portal" id="hero-portal" viewBox="0 0 600 600"></svg></div>
+    <div class="layer layer--web" data-depth="0.55"><svg class="web" id="hero-web" viewBox="0 0 1000 1000" preserveAspectRatio="xMaxYMin slice"></svg></div>
+    <div class="layer layer--horizon"></div>
+    <div class="layer layer--city layer--far" data-depth="-0.18"><svg data-skyline="far" viewBox="0 0 1600 420" preserveAspectRatio="xMidYMax slice"></svg></div>
+    <div class="layer layer--city layer--mid" data-depth="-0.32"><svg data-skyline="mid" viewBox="0 0 1600 420" preserveAspectRatio="xMidYMax slice"></svg></div>
+    <div class="layer layer--shade"></div>
+    <canvas class="layer particles" id="particles"></canvas>
+    <div class="layer layer--city layer--near" data-depth="-0.6"><svg data-skyline="near" viewBox="0 0 1600 420" preserveAspectRatio="xMidYMax slice"></svg></div>
+  </div>
+
+  <div class="hero-inner wrap">
+    <div class="masthead mono">
+      <span>Portfolio · Vol. 2026</span>
+      <span class="masthead-mid">Class of ’27 edition</span>
+      <span>Vijayawada · Andhra Pradesh · IN</span>
+    </div>
+
+    <div class="hero-copy">
+      <p class="hero-eyebrow mono"><span class="tag">AI/ML Engineer</span> Generative AI · Computer Vision · Trustworthy ML</p>
+
+      <h1 class="hero-name" id="hero-name" aria-label="Naishadh Vytla">
+        <span class="name-line name-line--1 glitch" data-text="NAISHADH" aria-hidden="true"><span class="ltr" style="--i:3;--ax:-46px;--ay:30px;--ar:-12deg">N</span><span class="ltr" style="--i:1;--ax:20px;--ay:-40px;--ar:9deg">A</span><span class="ltr" style="--i:5;--ax:-12px;--ay:52px;--ar:-4deg">I</span><span class="ltr" style="--i:0;--ax:34px;--ay:24px;--ar:14deg">S</span><span class="ltr" style="--i:4;--ax:-28px;--ay:-36px;--ar:-8deg">H</span><span class="ltr" style="--i:2;--ax:42px;--ay:40px;--ar:11deg">A</span><span class="ltr" style="--i:6;--ax:-36px;--ay:18px;--ar:-15deg">D</span><span class="ltr" style="--i:1;--ax:26px;--ay:-30px;--ar:7deg">H</span></span>
+        <span class="name-line name-line--2 glitch" data-text="VYTLA" aria-hidden="true"><span class="ltr" style="--i:2;--ax:-40px;--ay:-26px;--ar:10deg">V</span><span class="ltr" style="--i:0;--ax:30px;--ay:44px;--ar:-13deg">Y</span><span class="ltr" style="--i:3;--ax:-22px;--ay:-48px;--ar:6deg">T</span><span class="ltr" style="--i:1;--ax:44px;--ay:22px;--ar:-9deg">L</span><span class="ltr" style="--i:4;--ax:-30px;--ay:36px;--ar:12deg">A</span></span>
+      </h1>
+
+      <div class="hero-foot">
+        <div class="caption-box">
+          <p>Anyone can train a model.<br>I build models that know when not to trust&nbsp;themselves.</p>
+        </div>
+        <div class="hero-act">
+          <p class="hero-sub">Final-year ECE student at KL University, specializing in Generative AI and Machine Learning. I train vision transformers, measure calibration, build RAG pipelines and ship web apps.</p>
+          <div class="hero-cta">
+            <a class="btn btn--primary" href="#research"><span>Read the research</span><svg aria-hidden="true"><use href="#i-arrow"/></svg></a>
+            <a class="btn btn--ghost" href="#projects"><span>Enter the multiverse</span></a>
+            <a class="btn btn--ghost" href="assets/Naishadh_Vytla_CV.pdf" data-cv hidden><span>Download CV</span></a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <ul class="hero-stats" aria-label="Highlights">
+      <li class="stat" style="--c: var(--cyan)"><b>99.17%</b><span>accuracy, BTFuseViT brain MRI</span></li>
+      <li class="stat" style="--c: var(--yellow)"><b>F1 0.965</b><span>GPS spoofing detection, HGRL-ATN</span></li>
+      <li class="stat" style="--c: var(--magenta)"><b>4</b><span>manuscripts, 3 under peer review</span></li>
+    </ul>
+  </div>
+
+  <a class="scroll-cue mono" href="#about">Turn the page <span aria-hidden="true">↓</span></a>
+</section>
+
+<!-- ============ CH.1 ORIGIN ============ -->
+<section class="chapter chapter--paper" id="about" aria-labelledby="about-title">
+  <svg class="tear" viewBox="0 0 1440 90" preserveAspectRatio="none" aria-hidden="true"><path class="tear-fill" d="M0 90V62L1440 10v80z"/><path class="tear-a" d="M0 62 1440 10"/><path class="tear-b" d="M0 62 1440 10"/></svg>
+  <div class="wrap">
+    <header class="chap-head rv">
+      <p class="chap-no mono">Chapter 1</p>
+      <h2 class="chap-title rgb-title" id="about-title">Origin <em>story</em></h2>
+      <p class="chap-dek">Where I study, what I build, and what I’m looking for next.</p>
+    </header>
+
+    <div class="comic-page">
+      <article class="panel panel--caption rv" style="--rv-d: 0ms">
+        <p class="panel-tag mono">Panel 1 · Guntur, Andhra Pradesh</p>
+        <h3 class="panel-big">Electronics by degree. Machine learning by choice.</h3>
+        <p>I’m in the final year of a B.Tech in Electronics and Communication Engineering at KL University (Koneru Lakshmaiah Education Foundation), specializing in Generative AI and Machine Learning.</p>
+        <dl class="facts mono">
+          <div><dt>Class of</dt><dd>2027</dd></div>
+          <div><dt>CGPA</dt><dd>8.15 / 10</dd></div>
+          <div><dt>Since</dt><dd>Jul 2023</dd></div>
+        </dl>
+        <span class="annot annot--est" aria-hidden="true">est. 2023 ↘</span>
+      </article>
+
+      <figure class="panel panel--portrait rv" style="--rv-d: 70ms">
+        <div class="portrait">
+          <div class="portrait-ph" aria-hidden="true">
+            <span class="portrait-mono">NV</span>
+            <i class="crop crop--tl"></i><i class="crop crop--tr"></i><i class="crop crop--bl"></i><i class="crop crop--br"></i>
+          </div>
+          <img src="assets/portrait.jpg" alt="Portrait of Naishadh Vytla" loading="lazy">
+        </div>
+        <figcaption class="mono">Panel 2 · The author</figcaption>
+      </figure>
+
+      <article class="panel panel--builder rv" style="--rv-d: 140ms">
+        <p class="panel-tag mono">Panel 3 · The builder</p>
+        <p class="panel-lead">I like owning the whole path, from the first training run to a page people can use.</p>
+        <ol class="flow mono" aria-label="How I work">
+          <li><b>Train</b><span>ViTs, GANs, ST-GCN</span></li>
+          <li><b>Evaluate</b><span>ECE, bootstrap CIs</span></li>
+          <li><b>Retrieve</b><span>RAG, FAISS, LLaMA 3</span></li>
+          <li><b>Ship</b><span>Streamlit, Supabase, Netlify</span></li>
+        </ol>
+      </article>
+
+      <article class="panel panel--research rv" style="--rv-d: 210ms">
+        <p class="panel-tag mono">Panel 4 · The researcher</p>
+        <p class="panel-num" aria-hidden="true">4</p>
+        <p><b>Four manuscripts</b> across medical imaging, UAV security, histopathology and action recognition. Three are under peer review. The fourth is my first-author study.</p>
+        <span class="annot annot--vit" aria-hidden="true">one ViT beat a 10-model ensemble ↗</span>
+      </article>
+
+      <article class="panel panel--offpanel rv" style="--rv-d: 280ms">
+        <p class="panel-tag mono">Panel 5 · Off the page</p>
+        <div class="bubble">
+          <p class="bubble-lang"><span lang="en">English</span> · <span lang="te">తెలుగు</span> · <span lang="ja">日本語</span></p>
+          <p class="bubble-sub mono">Languages I speak</p>
+        </div>
+        <p class="offpanel-note">Co-Lead of the Adventure Club at the KL University Student Activity Center.</p>
+      </article>
+
+      <article class="panel panel--mission rv" style="--rv-d: 350ms">
+        <p class="panel-tag mono">Panel 6 · Next issue</p>
+        <p class="mission-line">Looking for <mark>AI/ML Engineer</mark> and <mark>Forward Deployed Engineer</mark> roles.</p>
+        <a class="link-ink" href="#contact">Send a signal <svg aria-hidden="true"><use href="#i-arrow"/></svg></a>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CH.2 RESEARCH ============ -->
+<section class="chapter chapter--ink" id="research" aria-labelledby="research-title">
+  <svg class="tear tear--flip" viewBox="0 0 1440 90" preserveAspectRatio="none" aria-hidden="true"><path class="tear-fill" d="M0 90V12l1440 54v24z"/><path class="tear-a" d="M0 12l1440 54"/><path class="tear-b" d="M0 12l1440 54"/></svg>
+  <div class="wrap">
+    <header class="chap-head chap-head--split rv">
+      <div class="chap-main">
+        <p class="chap-no mono">Chapter 2</p>
+        <h2 class="chap-title rgb-title" id="research-title">Research <em>verse</em></h2>
+      </div>
+      <p class="chap-dek">Four papers, one question running through them: when should we trust what a model tells us?</p>
+    </header>
+
+    <article class="paper-feature rv" aria-labelledby="pf-title">
+      <div class="pf-body">
+        <p class="stamp stamp--cyan mono">First author · Preparing submission to IEEE Access</p>
+        <h3 class="pf-title" id="pf-title"><span class="pf-q">When is calibration <span>measurable?</span></span> <span class="pf-sub">A Sample-Size–Controlled Study of Confidence Reliability in 3D Skeleton Action Recognition</span></h3>
+        <p class="authors mono"><b>N. Vytla</b>, K. K. Eepuri</p>
+        <p class="pf-abstract">A measurement study of how reliable model confidence is across MSR Action3D, MSR DailyActivity3D and NTU RGB+D 60/120. It compares temperature scaling, vector scaling, label smoothing, focal loss, MC dropout and multi-stream ensembling using ECE, Brier score, NLL, reliability diagrams and bootstrap confidence intervals. A null-model simulation separates real miscalibration from ECE estimator bias at small test sizes.</p>
+        <dl class="spec mono">
+          <div><dt>Datasets</dt><dd>4 skeleton benchmarks</dd></div>
+          <div><dt>Scale</dt><dd>320 → 114K sequences</dd></div>
+          <div><dt>Metrics</dt><dd>ECE · Brier · NLL</dd></div>
+          <div><dt>Model</dt><dd>ST-GCN, multi-stream</dd></div>
+          <div><dt>Pipeline</dt><dd>Resumable Colab, logit store</dd></div>
+          <div><dt>Checks</dt><dd>39 unit tests, topology gates</dd></div>
+        </dl>
+      </div>
+      <div class="pf-figs notebook">
+        <figure class="fig">
+          <div class="fig-svg" data-fig="reliability"></div>
+          <figcaption class="mono"><b>Fig. 1a</b> Reliability diagram, schematic. Hatched area is the overconfidence gap; the dashed outline is after temperature scaling.</figcaption>
+        </figure>
+        <figure class="fig">
+          <div class="fig-svg" data-fig="floor"></div>
+          <figcaption class="mono"><b>Fig. 1b</b> Schematic of the question: below the null-model floor, measured ECE is mostly estimator bias.</figcaption>
+        </figure>
+        <span class="annot annot--fig" aria-hidden="true">small test sets inflate ECE ↑</span>
+      </div>
+    </article>
+
+    <div class="review-head rv">
+      <h3 class="review-title">Under peer review</h3>
+      <p class="mono">3 manuscripts · co-authored</p>
+    </div>
+
+    <ol class="papers">
+      <li class="paper rv" style="--accent: var(--magenta)">
+        <div class="paper-fig" data-fig="vit" aria-hidden="true"></div>
+        <div class="paper-body">
+          <div class="paper-meta mono"><span class="stamp stamp--small">Under peer review</span><span>BMC Medical Imaging</span><span>Second author</span></div>
+          <h4 class="paper-title">BTFuseViT: A Vision Transformer with Multi-Dataset Fusion and Phased Transfer Learning for Multi-Class Brain Tumor Classification</h4>
+          <p class="authors mono">K. K. Eepuri, <b>N. Vytla</b>, K. Rajendra Prasad, P. Thottempudi, K. Siripuri</p>
+          <p>A ViT-B/16 at 384×384, fine-tuned on three fused brain MRI datasets with phased training (asymmetric focal loss, bf16 mixed precision, stochastic weight averaging) and temperature-scaled test-time augmentation. It separates glioma, meningioma, pituitary tumor and no tumor, with Grad-CAM++ for explanations.</p>
+          <ul class="metrics mono">
+            <li><b>99.17%</b> accuracy</li>
+            <li><b>0.9995</b> macro AUC</li>
+            <li><b>98.67%</b> on BRISC 2025 holdout</li>
+            <li><b>86.6M</b> params vs ~450M for a 10-model ensemble (97.83%)</li>
+          </ul>
+        </div>
+      </li>
+      <li class="paper rv" style="--accent: var(--yellow)">
+        <div class="paper-fig" data-fig="uav" aria-hidden="true"></div>
+        <div class="paper-body">
+          <div class="paper-meta mono"><span class="stamp stamp--small">Under peer review</span><span>Scientific Reports</span><span>Co-author</span></div>
+          <h4 class="paper-title">HGRL-ATN: A Hierarchical Graph Reinforcement Learning Framework for Trustworthy UAV Navigation under GPS Spoofing Attacks</h4>
+          <p class="authors mono">K. K. Eepuri, R. Konari, S. Prasad J, <b>N. Vytla</b>, H. A. Sk, M. SirElkhatim, W. Eltayeb</p>
+          <p>Hierarchical graph reinforcement learning with trust estimation, so a UAV can keep navigating when the GPS signal it receives is being spoofed.</p>
+          <ul class="metrics mono">
+            <li><b>0.965</b> spoofing-detection F1</li>
+            <li><b>Hierarchical</b> graph RL + trust estimation</li>
+          </ul>
+        </div>
+      </li>
+      <li class="paper rv" style="--accent: var(--cyan)">
+        <div class="paper-fig" data-fig="lung" aria-hidden="true"></div>
+        <div class="paper-body">
+          <div class="paper-meta mono"><span class="stamp stamp--small">Under peer review</span><span>Discover Applied Sciences</span><span>Co-author</span></div>
+          <h4 class="paper-title">Uncertainty-Aware Lung Cancer Histopathology Classification Under Cross-Dataset Distribution Shift</h4>
+          <p class="authors mono">K. K. Eepuri, B. Kondreddy, <b>N. Vytla</b>, Y. Vasimalla, B. S. Vakkalakula</p>
+          <p>Lung cancer histopathology classification that reports its own uncertainty, tested on data from a different source than it was trained on.</p>
+          <ul class="metrics mono">
+            <li><b>Uncertainty</b> estimates per prediction</li>
+            <li><b>Cross-dataset</b> evaluation</li>
+          </ul>
+        </div>
+      </li>
+    </ol>
+  </div>
+</section>
+
+<!-- ============ CH.3 PROJECTS ============ -->
+<section class="chapter chapter--navy" id="projects" aria-labelledby="projects-title">
+  <svg class="tear" viewBox="0 0 1440 90" preserveAspectRatio="none" aria-hidden="true"><path class="tear-fill" d="M0 90V62L1440 10v80z"/><path class="tear-a" d="M0 62 1440 10"/><path class="tear-b" d="M0 62 1440 10"/></svg>
+  <div class="wrap">
+    <header class="chap-head chap-head--split rv">
+      <div class="chap-main">
+        <p class="chap-no mono">Chapter 3</p>
+        <h2 class="chap-title rgb-title" id="projects-title">The <em>multiverse</em></h2>
+      </div>
+      <div class="filters" role="group" aria-label="Filter projects">
+        <button class="chip mono" type="button" data-filter="all" aria-pressed="true">All</button>
+        <button class="chip mono" type="button" data-filter="llm" aria-pressed="false">LLM &amp; RAG</button>
+        <button class="chip mono" type="button" data-filter="web" aria-pressed="false">Web &amp; data</button>
+        <button class="chip mono" type="button" data-filter="gen" aria-pressed="false">Generative</button>
+      </div>
+    </header>
+
+    <div class="projects" id="project-grid">
+      <article class="proj proj--feature rv" data-cats="web" style="--accent: var(--yellow)">
+        <div class="proj-art" data-art="clarity" aria-hidden="true"></div>
+        <div class="proj-body">
+          <p class="proj-code mono">DIM-EDA · Live</p>
+          <h3 class="proj-title">Clarity</h3>
+          <p class="proj-sum">An automated data analysis and reporting web app. Upload a spreadsheet, get a plain-English report.</p>
+          <ul class="tags mono"><li>JavaScript</li><li>Supabase</li><li>Netlify</li></ul>
+          <div class="proj-actions">
+            <button class="btn btn--small" type="button" data-open="clarity"><span>Open file</span><svg aria-hidden="true"><use href="#i-plus"/></svg></button>
+            <a class="link-arrow mono" href="https://clarityeda.netlify.app" target="_blank" rel="noopener">clarityeda.netlify.app <svg aria-hidden="true"><use href="#i-ext"/></svg></a>
+          </div>
+        </div>
+      </article>
+
+      <article class="proj proj--wide rv" data-cats="llm" style="--accent: var(--cyan); --rv-d: 60ms">
+        <div class="proj-art" data-art="rag" aria-hidden="true"></div>
+        <div class="proj-body">
+          <p class="proj-code mono">DIM-RAG · Offline</p>
+          <h3 class="proj-title">RAG Document QA</h3>
+          <p class="proj-sum">Ask questions of your own PDFs and Word files. Everything runs locally, so documents never leave the machine.</p>
+          <ul class="tags mono"><li>LangChain</li><li>FAISS</li><li>LLaMA 3</li><li>Ollama</li></ul>
+          <div class="proj-actions"><button class="btn btn--small" type="button" data-open="rag"><span>Open file</span><svg aria-hidden="true"><use href="#i-plus"/></svg></button></div>
+        </div>
+      </article>
+
+      <article class="proj proj--tall rv" data-cats="llm web" style="--accent: var(--magenta); --rv-d: 120ms">
+        <div class="proj-art" data-art="screener" aria-hidden="true"></div>
+        <div class="proj-body">
+          <p class="proj-code mono">DIM-LLM · On-device</p>
+          <h3 class="proj-title">AI Resume Screener</h3>
+          <p class="proj-sum">Scores resume-to-job fit from 1 to 10 with LLaMA 3 and exports a ranked shortlist.</p>
+          <ul class="tags mono"><li>LLaMA 3</li><li>PyPDF2</li><li>Streamlit</li></ul>
+          <div class="proj-actions"><button class="btn btn--small" type="button" data-open="screener"><span>Open file</span><svg aria-hidden="true"><use href="#i-plus"/></svg></button></div>
+        </div>
+      </article>
+
+      <article class="proj proj--wide rv" data-cats="gen" style="--accent: var(--violet); --rv-d: 180ms">
+        <div class="proj-art" data-art="gen" aria-hidden="true"></div>
+        <div class="proj-body">
+          <p class="proj-code mono">DIM-GAN · Experiments</p>
+          <h3 class="proj-title">Generative &amp; sequence models</h3>
+          <p class="proj-sum">GANs, VAEs and transformers trained from scratch and compared head to head.</p>
+          <ul class="tags mono"><li>PyTorch</li><li>DCGAN</li><li>WGAN-GP</li><li>LSTM</li></ul>
+          <div class="proj-actions"><button class="btn btn--small" type="button" data-open="gen"><span>Open file</span><svg aria-hidden="true"><use href="#i-plus"/></svg></button></div>
+        </div>
+      </article>
+    </div>
+    <p class="filter-empty mono" id="filter-status" role="status" aria-live="polite"></p>
+
+    <!-- Expanded project files, cloned into the modal -->
+    <template id="tpl-clarity">
+      <p class="modal-code mono">DIM-EDA · Live web app</p>
+      <h3 class="modal-title" id="modal-title">Clarity</h3>
+      <p class="modal-lead">Automated data analysis and reporting in the browser.</p>
+      <ul class="modal-points">
+        <li>Ingests CSV, Excel and JSON files up to 50 MB and infers what each column means.</li>
+        <li>Writes plain-English reports on segments, trends and the drivers behind an outcome.</li>
+        <li>Reversible data cleaning, with processing kept private in the browser.</li>
+        <li>Supabase for sign-in (email/password and Google), database and file storage.</li>
+        <li>Exports to PDF, HTML and CSV. Deployed on Netlify with no build step.</li>
+      </ul>
+      <ul class="tags mono"><li>JavaScript</li><li>Supabase</li><li>Netlify</li><li>EDA</li></ul>
+      <a class="btn btn--primary" href="https://clarityeda.netlify.app" target="_blank" rel="noopener"><span>Open Clarity</span><svg aria-hidden="true"><use href="#i-ext"/></svg></a>
+    </template>
+    <template id="tpl-rag">
+      <p class="modal-code mono">DIM-RAG · Built during my internship</p>
+      <h3 class="modal-title" id="modal-title">RAG Document QA</h3>
+      <p class="modal-lead">Retrieval-augmented question answering over PDF and DOCX files, fully offline.</p>
+      <ul class="modal-points">
+        <li>LangChain orchestrates document loading, chunking, embedding and retrieval.</li>
+        <li>FAISS vector search finds the passages most relevant to each question.</li>
+        <li>LLaMA 3 served locally through Ollama writes the answer from those passages.</li>
+        <li>No cloud calls, so private documents stay on the machine.</li>
+      </ul>
+      <ul class="tags mono"><li>LangChain</li><li>FAISS</li><li>Embeddings</li><li>LLaMA 3</li><li>Ollama</li></ul>
+    </template>
+    <template id="tpl-screener">
+      <p class="modal-code mono">DIM-LLM · Privacy-first</p>
+      <h3 class="modal-title" id="modal-title">AI Resume Screener</h3>
+      <p class="modal-lead">An on-device LLM that ranks candidates against a job description.</p>
+      <ul class="modal-points">
+        <li>Extracts resume text from PDFs with PyPDF2.</li>
+        <li>LLaMA 3 through Ollama scores each resume’s fit to the job description from 1 to 10.</li>
+        <li>A Streamlit interface shows the ranking and exports it to CSV.</li>
+        <li>Runs entirely on the user’s machine.</li>
+      </ul>
+      <ul class="tags mono"><li>LLaMA 3</li><li>Ollama</li><li>PyPDF2</li><li>Streamlit</li></ul>
+      <a class="btn btn--ghost" href="https://github.com/naishadhvytla" target="_blank" rel="noopener"><span>GitHub profile</span><svg aria-hidden="true"><use href="#i-ext"/></svg></a>
+    </template>
+    <template id="tpl-gen">
+      <p class="modal-code mono">DIM-GAN · Experiments</p>
+      <h3 class="modal-title" id="modal-title">Generative &amp; sequence models</h3>
+      <p class="modal-lead">A lab notebook of generative and language models built from scratch.</p>
+      <ul class="modal-points">
+        <li>DCGAN trained on MNIST and WGAN-GP trained on CIFAKE.</li>
+        <li>A transformer-based text-to-image generator and transformer chatbots.</li>
+        <li>Benchmarked GAN vs. VAE vs. Transformer image generation.</li>
+        <li>Compared N-gram, HMM, RNN/LSTM and transformer language models.</li>
+      </ul>
+      <ul class="tags mono"><li>PyTorch</li><li>GANs</li><li>VAEs</li><li>Transformers</li><li>HMM</li></ul>
+    </template>
+  </div>
+</section>
+
+<!-- ============ CH.4 SKILLS ============ -->
+<section class="chapter chapter--ink chapter--violet" id="skills" aria-labelledby="skills-title">
+  <svg class="tear tear--flip" viewBox="0 0 1440 90" preserveAspectRatio="none" aria-hidden="true"><path class="tear-fill" d="M0 90V12l1440 54v24z"/><path class="tear-a" d="M0 12l1440 54"/><path class="tear-b" d="M0 12l1440 54"/></svg>
+  <div class="wrap">
+    <header class="chap-head rv">
+      <p class="chap-no mono">Chapter 4</p>
+      <h2 class="chap-title rgb-title" id="skills-title">Power <em>system</em></h2>
+      <p class="chap-dek">Six clusters, wired together where one feeds another. Pick a node to see the skills and where I used them.</p>
+    </header>
+
+    <div class="powers-wrap">
+      <div class="constellation rv" id="constellation">
+        <svg class="const-svg" id="const-svg" viewBox="0 0 1000 820" aria-hidden="true"></svg>
+        <div class="power-nav" id="power-nav" role="group" aria-label="Skill clusters"></div>
+      </div>
+      <ul class="powers" id="powers">
+        <li class="power" data-key="genai" data-short="GenAI" data-sat="LLMs|RAG|LangChain|FAISS|LLaMA 3" data-icon="i-genai" style="--c: var(--cyan)">
+          <h3 class="power-name">Generative AI &amp; LLMs</h3>
+          <p class="power-desc">Retrieval pipelines and local LLM apps that keep data private.</p>
+          <ul class="power-skills mono"><li>LLMs</li><li>RAG</li><li>LangChain</li><li>FAISS</li><li>LLaMA 3</li><li>Ollama</li><li>Hugging Face</li><li>Embeddings</li><li>Prompt engineering</li></ul>
+          <p class="power-proof mono">Used in: RAG Document QA, AI Resume Screener</p>
+        </li>
+        <li class="power" data-key="vision" data-short="Vision" data-sat="PyTorch|ViT|Grad-CAM++|Swin|EVA-02" data-icon="i-vision" style="--c: var(--magenta)">
+          <h3 class="power-name">Vision &amp; deep learning</h3>
+          <p class="power-desc">Fine-tuning large vision backbones and explaining what they look at.</p>
+          <ul class="power-skills mono"><li>PyTorch</li><li>TensorFlow</li><li>timm</li><li>ViT</li><li>Swin</li><li>EVA-02</li><li>SigLIP</li><li>bf16 mixed precision</li><li>TTA</li><li>Grad-CAM++</li><li>OpenCV</li></ul>
+          <p class="power-proof mono">Used in: BTFuseViT, lung histopathology study</p>
+        </li>
+        <li class="power" data-key="trust" data-short="Trust" data-sat="Temp. scaling|ECE|Brier|NLL|Bootstrap" data-icon="i-trust" style="--c: var(--yellow)">
+          <h3 class="power-name">Trustworthy ML</h3>
+          <p class="power-desc">Checking whether a model’s confidence means anything, and fixing it when it doesn’t.</p>
+          <ul class="power-skills mono"><li>Temperature scaling</li><li>ECE</li><li>Brier score</li><li>NLL</li><li>Reliability diagrams</li><li>Bootstrap CIs</li><li>MC dropout</li><li>Label smoothing</li><li>Focal loss</li></ul>
+          <p class="power-proof mono">Used in: calibration study (first author), BTFuseViT</p>
+        </li>
+        <li class="power" data-key="graph" data-short="Graphs" data-sat="VAE|ST-GCN|LSTM|Graph RL|WGAN-GP" data-icon="i-graph" style="--c: var(--crimson)">
+          <h3 class="power-name">Graphs, sequences &amp; generative</h3>
+          <p class="power-desc">Models for skeletons, swarms, text and images.</p>
+          <ul class="power-skills mono"><li>ST-GCN</li><li>Graph RL</li><li>Reinforcement learning</li><li>LSTMs</li><li>N-gram / HMM</li><li>DCGAN</li><li>WGAN-GP</li><li>VAEs</li><li>Transformers</li></ul>
+          <p class="power-proof mono">Used in: HGRL-ATN, calibration study, generative experiments</p>
+        </li>
+        <li class="power" data-key="data" data-short="Data" data-sat="sklearn|pandas|NumPy|EDA|Stats" data-icon="i-data" style="--c: var(--paper)">
+          <h3 class="power-name">ML &amp; data</h3>
+          <p class="power-desc">The fundamentals: clean data, solid baselines, honest evaluation.</p>
+          <ul class="power-skills mono"><li>scikit-learn</li><li>pandas</li><li>NumPy</li><li>EDA</li><li>Classification</li><li>Regression</li><li>Statistical testing</li></ul>
+          <p class="power-proof mono">Used in: Smart Swift internship, Clarity</p>
+        </li>
+        <li class="power" data-key="ship" data-short="Ship" data-sat="Python|SQL|JS|Supabase|LaTeX" data-icon="i-ship" style="--c: var(--violet)">
+          <h3 class="power-name">Engineering &amp; shipping</h3>
+          <p class="power-desc">Getting work out of a notebook and in front of people.</p>
+          <ul class="power-skills mono"><li>Python</li><li>SQL</li><li>JavaScript</li><li>HTML/CSS</li><li>Streamlit</li><li>Supabase</li><li>Netlify</li><li>Git/GitHub</li><li>Colab</li><li>LaTeX</li></ul>
+          <p class="power-proof mono">Used in: Clarity, VISA hackathon app, every manuscript</p>
+        </li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CH.5 TIMELINE ============ -->
+<section class="chapter chapter--deep" id="timeline" aria-labelledby="timeline-title">
+  <svg class="tear" viewBox="0 0 1440 90" preserveAspectRatio="none" aria-hidden="true"><path class="tear-fill" d="M0 90V62L1440 10v80z"/><path class="tear-a" d="M0 62 1440 10"/><path class="tear-b" d="M0 62 1440 10"/></svg>
+  <div class="wrap">
+    <header class="chap-head chap-head--split rv">
+      <div class="chap-main">
+        <p class="chap-no mono">Chapter 5</p>
+        <h2 class="chap-title rgb-title" id="timeline-title">The <em>timeline</em></h2>
+      </div>
+      <p class="chap-dek">Read it like a comic strip, top left to bottom right.</p>
+    </header>
+
+    <div class="strip" id="strip">
+      <svg class="strand" id="strand" aria-hidden="true"><path class="strand-ghost"/><path class="strand-live"/></svg>
+      <ol class="frames">
+        <li class="frame rv" style="--sfx: var(--cyan)">
+          <span class="marker mono"><time datetime="2023-07">Jul 2023</time></span>
+          <h3 class="frame-title">Origin</h3>
+          <p>Started a B.Tech in Electronics and Communication Engineering at KL University, later specializing in Generative AI and Machine Learning.</p>
+          <span class="sfx" aria-hidden="true">Begin!</span>
+        </li>
+        <li class="frame frame--big rv" style="--sfx: var(--yellow)">
+          <span class="marker mono"><time datetime="2025-05">May</time>–<time datetime="2025-07">Jul 2025</time></span>
+          <h3 class="frame-title">Data Science Intern</h3>
+          <p class="frame-org mono">Smart Swift Innovations Pvt. Ltd. · Remote</p>
+          <ul class="frame-points">
+            <li>Built an offline RAG question-answering system over PDF and DOCX files with LangChain, FAISS and LLaMA 3.</li>
+            <li>Developed an LLM resume screener that scores fit from 1 to 10 and exports ranked candidates.</li>
+            <li>Delivered classification and regression models on operational data, reaching 92% accuracy on the main prediction task.</li>
+            <li>Analyzed 5+ datasets; feature correlations I found improved model performance by about 15%.</li>
+            <li>Automated data-cleaning pipelines that cut preprocessing time by 40%.</li>
+          </ul>
+          <span class="sfx" aria-hidden="true">Ship it!</span>
+        </li>
+        <li class="frame rv" style="--sfx: var(--magenta)">
+          <span class="marker mono"><time datetime="2025">2025</time>–<time datetime="2026">26</time></span>
+          <h3 class="frame-title">Research arc</h3>
+          <p>Co-authored three manuscripts now under peer review. Took BTFuseViT through 10+ revision cycles: LaTeX typesetting, reference audits, statistical claim checks and similarity reduced to 8%.</p>
+          <span class="sfx" aria-hidden="true">Revise!</span>
+        </li>
+        <li class="frame rv" style="--sfx: var(--crimson)">
+          <span class="marker mono"><time datetime="2026-01">Jan 2026</time></span>
+          <h3 class="frame-title">24 hours at IIT Madras</h3>
+          <p>Finalist at the VISA 24Hrs AI Hackathon. Built and deployed a live AI web application inside the 24-hour window.</p>
+          <span class="sfx" aria-hidden="true">24H!</span>
+        </li>
+        <li class="frame rv" style="--sfx: var(--cyan)">
+          <span class="marker mono"><time datetime="2026">2026</time></span>
+          <h3 class="frame-title">First-author study</h3>
+          <p>The calibration benchmark for skeleton action recognition becomes a manuscript, being prepared for IEEE Access.</p>
+          <span class="sfx" aria-hidden="true">Measure!</span>
+        </li>
+        <li class="frame frame--next rv" style="--sfx: var(--yellow)">
+          <span class="marker mono"><time datetime="2027">2027</time></span>
+          <h3 class="frame-title">Next issue</h3>
+          <p>Graduation (expected), then AI/ML Engineer or Forward Deployed Engineer roles.</p>
+          <span class="sfx" aria-hidden="true">Soon!</span>
+        </li>
+      </ol>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CH.6 ACHIEVEMENTS ============ -->
+<section class="chapter chapter--ink chapter--burst" id="achievements" aria-labelledby="ach-title">
+  <svg class="tear tear--flip" viewBox="0 0 1440 90" preserveAspectRatio="none" aria-hidden="true"><path class="tear-fill" d="M0 90V12l1440 54v24z"/><path class="tear-a" d="M0 12l1440 54"/><path class="tear-b" d="M0 12l1440 54"/></svg>
+  <div class="wrap">
+    <header class="chap-head rv">
+      <p class="chap-no mono">Chapter 6</p>
+      <h2 class="chap-title rgb-title" id="ach-title">Collect<em>ibles</em></h2>
+      <p class="chap-dek">Awards, scholarships and certifications, one card each.</p>
+    </header>
+
+    <p class="swipe-hint mono" aria-hidden="true">Swipe the deck →</p>
+    <ul class="cards">
+      <li class="card rv" style="--c: var(--crimson); --tilt: -3deg">
+        <div class="card-top mono"><span>No. 001</span><span>Hackathon</span></div>
+        <div class="card-emblem"><svg aria-hidden="true"><use href="#e-bolt"/></svg></div>
+        <h3 class="card-title">VISA 24Hrs AI Hackathon</h3>
+        <p class="card-issuer mono">IIT Madras · Jan 2026</p>
+        <p class="card-stat">Built and deployed a live AI web app in 24 hours.</p>
+        <span class="card-stamp mono">Finalist</span>
+      </li>
+      <li class="card rv" style="--c: var(--cyan); --tilt: 2deg; --rv-d: 60ms">
+        <div class="card-top mono"><span>No. 002</span><span>Analytics</span></div>
+        <div class="card-emblem"><svg aria-hidden="true"><use href="#e-chart"/></svg></div>
+        <h3 class="card-title">Summer Analytics 2025</h3>
+        <p class="card-issuer mono">Consulting &amp; Analytics Club, IIT Guwahati · Jul 2025</p>
+        <p class="card-stat">Certificate of Merit, top 25 percentile.</p>
+        <span class="card-stamp mono">Merit</span>
+      </li>
+      <li class="card rv" style="--c: var(--yellow); --tilt: -1.5deg; --rv-d: 120ms">
+        <div class="card-top mono"><span>No. 003</span><span>Scholarship</span></div>
+        <div class="card-emblem"><svg aria-hidden="true"><use href="#e-chip"/></svg></div>
+        <h3 class="card-title">Altium Global Scholarship</h3>
+        <p class="card-issuer mono">Altium · May 2025</p>
+        <p class="card-stat">Valued at USD 5,400+, with professional certification in PCB design.</p>
+        <span class="card-stamp mono">Scholar</span>
+      </li>
+      <li class="card rv" style="--c: var(--magenta); --tilt: 2.5deg; --rv-d: 180ms">
+        <div class="card-top mono"><span>No. 004</span><span>Certification</span></div>
+        <div class="card-emblem"><svg aria-hidden="true"><use href="#e-cloud"/></svg></div>
+        <h3 class="card-title">OCI AI Foundations Associate</h3>
+        <p class="card-issuer mono">Oracle · Oct 2025</p>
+        <p class="card-stat">Oracle Cloud Infrastructure 2025 Certified AI Foundations Associate.</p>
+        <span class="card-stamp mono">Certified</span>
+      </li>
+      <li class="card rv" style="--c: var(--violet); --tilt: -2deg; --rv-d: 240ms">
+        <div class="card-top mono"><span>No. 005</span><span>Certification</span></div>
+        <div class="card-emblem"><svg aria-hidden="true"><use href="#e-gear"/></svg></div>
+        <h3 class="card-title">AI &amp; ML using Python, L1</h3>
+        <p class="card-issuer mono">TARAS Systems · Apr 2025</p>
+        <p class="card-stat">Industrial automation track.</p>
+        <span class="card-stamp mono">Certified</span>
+      </li>
+      <li class="card rv" style="--c: var(--paper); --tilt: 1.5deg; --rv-d: 300ms">
+        <div class="card-top mono"><span>No. 006</span><span>Leadership</span></div>
+        <div class="card-emblem"><svg aria-hidden="true"><use href="#e-peak"/></svg></div>
+        <h3 class="card-title">Adventure Club</h3>
+        <p class="card-issuer mono">KL University Student Activity Center</p>
+        <p class="card-stat">Co-Lead of the club.</p>
+        <span class="card-stamp mono">Co-Lead</span>
+      </li>
+    </ul>
+  </div>
+</section>
+
+<!-- ============ CH.7 CONTACT ============ -->
+<section class="chapter chapter--portal" id="contact" aria-labelledby="contact-title">
+  <svg class="tear" viewBox="0 0 1440 90" preserveAspectRatio="none" aria-hidden="true"><path class="tear-fill" d="M0 90V62L1440 10v80z"/><path class="tear-a" d="M0 62 1440 10"/><path class="tear-b" d="M0 62 1440 10"/></svg>
+  <div class="contact-portal" aria-hidden="true"><svg class="portal portal--big" id="contact-portal" viewBox="0 0 600 600"></svg></div>
+  <div class="wrap contact-grid">
+    <header class="contact-head rv">
+      <p class="chap-no mono">Chapter 7 · Final panel</p>
+      <h2 class="contact-title rgb-title" id="contact-title">Open a <em>portal</em></h2>
+      <p class="contact-dek">Hiring for AI/ML or forward deployed roles, or working on something where trusting a model really matters? Send me a message.</p>
+    </header>
+
+    <div class="contact-body rv" style="--rv-d: 80ms">
+      <div class="email-row">
+        <p class="mono label">Email</p>
+        <div class="email-line">
+          <span class="email" id="email-text">vytlanaishadh2@gmail.com</span>
+          <button class="icon-btn icon-btn--copy" id="copy-email" type="button" aria-label="Copy email address" data-tip="Copy email"><svg aria-hidden="true"><use href="#i-copy"/></svg></button>
+          <span class="burst mono" id="copy-burst" aria-hidden="true">Copied!</span>
+        </div>
+        <p class="sr-only" id="copy-status" role="status" aria-live="polite"></p>
+      </div>
+      <ul class="socials">
+        <li><a class="link-arrow mono" href="https://www.linkedin.com/in/naishadhvytla" target="_blank" rel="noopener">LinkedIn · /in/naishadhvytla <svg aria-hidden="true"><use href="#i-ext"/></svg></a></li>
+        <li><a class="link-arrow mono" href="https://github.com/naishadhvytla" target="_blank" rel="noopener">GitHub · @naishadhvytla <svg aria-hidden="true"><use href="#i-ext"/></svg></a></li>
+      </ul>
+
+      <form class="signal" id="signal-form" novalidate>
+        <p class="mono label">Or write it here</p>
+        <div class="field">
+          <label for="f-name">Your name</label>
+          <input id="f-name" name="name" type="text" autocomplete="name" required>
+          <p class="field-err mono" id="f-name-err"></p>
+        </div>
+        <div class="field">
+          <label for="f-email">Your email</label>
+          <input id="f-email" name="email" type="email" autocomplete="email" required>
+          <p class="field-err mono" id="f-email-err"></p>
+        </div>
+        <div class="field">
+          <label for="f-msg">Message</label>
+          <textarea id="f-msg" name="message" rows="4" required></textarea>
+          <p class="field-err mono" id="f-msg-err"></p>
+        </div>
+        <button class="btn btn--primary btn--submit" type="submit"><span class="btn-label">Write the email</span><span class="dots" aria-hidden="true"><i></i><i></i><i></i></span></button>
+        <div class="signal-result" id="signal-result" hidden>
+          <p>Your email app should open with this message addressed to me. If nothing opened, copy it and send it to <b>vytlanaishadh2@gmail.com</b>.</p>
+          <button class="btn btn--small" type="button" id="copy-msg"><span>Copy message</span><svg aria-hidden="true"><use href="#i-copy"/></svg></button>
+        </div>
+      </form>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer class="footer">
+  <div class="wrap footer-in">
+    <p class="tbc">To be continued…</p>
+    <p class="mono footer-meta">© 2026 Naishadh Vytla · Original artwork and code, drawn in HTML, CSS and JavaScript.</p>
+    <a class="link-arrow mono" href="#cover">Back to the cover <span aria-hidden="true">↑</span></a>
+  </div>
+</footer>
+
+<dialog class="modal" id="modal" aria-labelledby="modal-title">
+  <div class="modal-panel">
+    <div class="modal-art" aria-hidden="true"></div>
+    <div class="modal-body" id="modal-body"></div>
+    <button class="icon-btn modal-close" type="button" data-close aria-label="Close project"><svg aria-hidden="true"><use href="#i-close"/></svg></button>
+  </div>
+</dialog>
+
+<script src="js/main.js"></script>
+</body>
+</html>
