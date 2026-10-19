@@ -24,6 +24,8 @@
   function safe(name, fn) {
     try { fn(); } catch (e) { console.error(`[${name}]`, e); }
   }
+  // Older Safari only has addListener on media queries.
+  const onMQChange = (mq, fn) => (mq.addEventListener ? mq.addEventListener('change', fn) : mq.addListener && mq.addListener(fn));
 
   /* ---------------------------------------------------------------------
      Loading state, then a reading-progress strip in the same ink bar
@@ -228,7 +230,7 @@
         curve += `${i ? 'L' : 'M'}${f1(X(n))} ${f1(Y(Math.min(floorAt(n), yMax)))}`;
       }
       const area = `${curve}L${x1} ${y1}L${x0} ${y1}Z`;
-      const sets = [[320, 'DA3D', 6, -9, 'start'], [567, 'MSR-A3D', 8, 14, 'start'], [56880, 'NTU60', -8, -12, 'end'], [114480, 'NTU120', 2, -27, 'end']];
+      const sets = [[320, 'DA3D', 6, -9, 'start'], [567, 'MSR-A3D', 10, -6, 'start'], [56880, 'NTU60', -8, -12, 'end'], [114480, 'NTU120', 2, -27, 'end']];
       const dots = sets.map(([n, label, dx, dy, anchor]) => {
         const cx = X(n), cy = Y(floorAt(n));
         return `<circle cx="${f1(cx)}" cy="${f1(cy)}" r="4" class="f-cyan"/><text x="${f1(cx + dx)}" y="${f1(cy + dy)}" text-anchor="${anchor}" class="f-paper t-mono" font-size="9.5">${label}</text>`;
@@ -246,8 +248,8 @@
           <text transform="translate(12 ${(y0 + y1) / 2}) rotate(-90)" text-anchor="middle">null ECE</text>
         </g>
         <text x="${x1 - 4}" y="${y0 + 22}" text-anchor="end" class="f-cyan t-mono" font-size="10.5">measurable</text>
-        <rect x="${x0 + 52}" y="${y1 - 41}" width="90" height="16" class="f-ink"/>
-        <text x="${x0 + 57}" y="${y1 - 29}" class="f-crimson t-mono" font-size="10.5">estimator bias</text>
+        <rect x="${x0 + 8}" y="${y1 - 18}" width="90" height="16" class="f-ink"/>
+        <text x="${x0 + 13}" y="${y1 - 6}" class="f-crimson t-mono" font-size="10.5">estimator bias</text>
         ${dots}
       </svg>`;
     },
@@ -301,21 +303,21 @@
           nodes += `<circle cx="${x}" cy="${y}" r="17" class="f-none s-crimson fx-pulse" stroke-width="2"/>
             <path d="M${x} ${y - 15}l4 8 9-2-5 8 7 6-9 1 1 9-7-5-7 5 1-9-9-1 7-6-5-8 9 2z" class="f-crimson"/>`;
         } else {
-          nodes += `<circle cx="${x}" cy="${y}" r="9" class="f-ink s-cyan" stroke-width="2.2"/><path d="M${x - 14} ${y}H${x + 14}" class="s-cyan" stroke-width="1.6"/>`;
+          nodes += `<circle cx="${x}" cy="${y}" r="9" class="f-ink s-cyan" stroke-width="2.2"/>`;
         }
       });
       heads.forEach(([x, y]) => { nodes += `<rect x="${x - 10}" y="${y - 10}" width="20" height="20" transform="rotate(45 ${x} ${y})" class="f-ink s-yellow" stroke-width="2.2"/>`; });
       return `<svg viewBox="0 0 400 300" preserveAspectRatio="xMidYMid meet" font-size="11">
-        <text x="20" y="30" class="f-paper t-mono" opacity=".7">trust per link · schematic</text>
+        <text x="20" y="30" class="f-paper t-mono" opacity=".7">hierarchical graph + trust · schematic</text>
         ${edges}
         <rect x="186" y="42" width="28" height="28" class="f-yellow"/>
-        <text x="200" y="61" text-anchor="middle" class="f-ink t-disp" font-size="14">C2</text>
         ${nodes}
         <g transform="translate(358 46)">
           <rect x="-10" y="-6" width="20" height="12" class="f-crimson"/><rect x="-26" y="-3" width="13" height="6" class="f-crimson" opacity=".7"/><rect x="13" y="-3" width="13" height="6" class="f-crimson" opacity=".7"/>
         </g>
-        <path d="M352 64q-8 40 4 146" class="f-none s-crimson fx-flow" stroke-width="2" stroke-dasharray="3 6"/>
+        <path d="M352 64q-8 40 4 146" class="f-none s-crimson fx-flow" stroke-width="2" stroke-dasharray="3 4"/>
         <text x="300" y="30" class="f-crimson t-mono" font-size="10">spoofed GPS</text>
+        <rect x="265" y="276" width="124" height="17" class="f-ink"/>
         <text x="270" y="288" class="f-crimson t-mono" font-size="10">flagged · low trust</text>
       </svg>`;
     },
@@ -366,7 +368,7 @@
       let table = '';
       for (let row = 0; row < 8; row++) {
         for (let c = 0; c < 5; c++) {
-          const x = 52 + c * 50, y = 108 + row * 34;
+          const x = 52 + c * 50, y = 116 + row * 34;
           const hot = (row === 3 && c === 2) || (row === 6 && c === 4);
           table += `<rect x="${x}" y="${y}" width="44" height="26" class="${row === 0 ? 'f-yellow' : hot ? 'f-crimson' : 'f-ink'}" opacity="${row === 0 || hot ? 1 : .75}"/>`;
           if (row > 0 && !hot) table += `<rect x="${x + 6}" y="${y + 11}" width="${f1(10 + r() * 24)}" height="4" class="f-paper" opacity=".5"/>`;
@@ -376,9 +378,9 @@
       const bars = vals.map((v, i) => `<rect x="${360 + i * 40}" y="${f1(380 - v * 200)}" width="28" height="${f1(v * 200)}" class="${i === 5 ? 'f-yellow' : 'f-paper'}" opacity="${i === 5 ? 1 : .8}"/>`).join('');
       const trend = vals.map((v, i) => `${i ? 'L' : 'M'}${374 + i * 40} ${f1(360 - v * 200)}`).join('');
       return `<svg viewBox="0 0 640 480" preserveAspectRatio="xMidYMid slice" font-size="14">
-        <text x="52" y="88" class="f-paper t-mono" font-size="15" opacity=".8">your_data.csv · up to 50 MB</text>
+        <text x="52" y="98" class="f-paper t-mono" font-size="17" opacity=".85">your_data.csv · up to 50 MB</text>
         ${table}
-        <path d="M44 216H310" class="s-cyan fx-flow" stroke-width="3" stroke-dasharray="8 6"/>
+        <path d="M44 224H310" class="s-cyan fx-flow" stroke-width="3" stroke-dasharray="8 6"/>
         <path d="M330 270h18l-6-6M348 270l-6 6" class="f-none s-paper" stroke-width="3"/>
         <path d="M352 380H600" class="s-paper" stroke-width="2"/>
         ${bars}
@@ -398,20 +400,20 @@
       }
       let pts = '', near = '';
       const q = [452, 238];
-      const cloud = Array.from({ length: 34 }, () => [372 + r() * 170, 136 + r() * 200]);
+      const cloud = Array.from({ length: 34 }, () => [372 + r() * 170, 136 + r() * 170]);
       cloud.forEach(([x, y]) => { pts += `<circle cx="${f1(x)}" cy="${f1(y)}" r="4.5" class="f-paper" opacity=".55"/>`; });
       cloud.map((p) => [p, Math.hypot(p[0] - q[0], p[1] - q[1])]).sort((a, b) => a[1] - b[1]).slice(0, 3)
         .forEach(([[x, y]]) => { near += `<path d="M${q[0]} ${q[1]}L${f1(x)} ${f1(y)}" class="s-cyan" stroke-width="2.4"/><circle cx="${f1(x)}" cy="${f1(y)}" r="7" class="f-cyan"/>`; });
       return `<svg viewBox="0 0 640 480" preserveAspectRatio="xMidYMid slice" font-size="14">
-        <text x="56" y="96" class="f-paper t-mono" font-size="15" opacity=".8">docs → chunks → FAISS</text>
+        <text x="56" y="96" class="f-paper t-mono" font-size="18" opacity=".85">docs → chunks → FAISS</text>
         ${pages}
-        <path d="M232 238H352" class="s-paper fx-flow" stroke-width="2.4" stroke-dasharray="6 6"/>
-        <rect x="360" y="124" width="196" height="224" class="f-none s-paper" stroke-width="1.5" stroke-dasharray="2 6" opacity=".6"/>
+        <path d="M232 238H352" class="s-paper fx-flow" stroke-width="2.4" stroke-dasharray="8 6"/>
+        <rect x="360" y="124" width="196" height="196" class="f-none s-paper" stroke-width="1.5" stroke-dasharray="2 6" opacity=".6"/>
         ${pts}${near}
         <path d="M${q[0]} ${q[1] - 13}l4 9 10 1-8 6 3 10-9-6-9 6 3-10-8-6 10-1z" class="f-yellow"/>
-        <path d="M418 382h168a14 14 0 0 1 14 14v40a14 14 0 0 1-14 14H452l-22 18v-18h-12a14 14 0 0 1-14-14v-40a14 14 0 0 1 14-14z" class="f-cyan"/>
-        <text x="424" y="414" class="f-ink t-disp" font-size="18">ANSWER FROM YOUR DOCS</text>
-        <rect x="424" y="424" width="150" height="5" class="f-ink" opacity=".5"/>
+        <path d="M418 330h168a14 14 0 0 1 14 14v40a14 14 0 0 1-14 14H452l-22 18v-18h-12a14 14 0 0 1-14-14v-40a14 14 0 0 1 14-14z" class="f-cyan"/>
+        <text x="424" y="362" class="f-ink t-disp" font-size="18">ANSWER FROM YOUR DOCS</text>
+        <rect x="424" y="372" width="150" height="5" class="f-ink" opacity=".5"/>
       </svg>`;
     },
     screener() {
@@ -427,7 +429,7 @@
           <text x="530" y="${y + 33}" text-anchor="middle" class="${top ? 'f-ink' : 'f-magenta'} t-disp" font-size="26">${s}</text>`;
       }).join('');
       return `<svg viewBox="0 72 640 360" preserveAspectRatio="xMidYMid slice" font-size="14">
-        <text x="70" y="104" class="f-paper t-mono" font-size="15" opacity=".8">JD fit · scored 1–10 · on-device</text>
+        <text x="70" y="108" class="f-paper t-mono" font-size="18" opacity=".85">JD fit · scored 1–10 · on-device</text>
         ${list}
         <text x="580" y="160" class="f-yellow t-disp" font-size="16" transform="rotate(-8 580 160)">TOP PICK</text>
       </svg>`;
@@ -445,10 +447,10 @@
         }
       }
       return `<svg viewBox="0 0 640 480" preserveAspectRatio="xMidYMid slice" font-size="14">
-        <text x="60" y="112" class="f-paper t-mono" font-size="15" opacity=".8">z ~ N(0, I)</text>
-        <text x="380" y="112" class="f-paper t-mono" font-size="15" opacity=".8">G(z) · MNIST</text>
+        <text x="60" y="112" class="f-paper t-mono" font-size="18" opacity=".85">z ~ N(0, I)</text>
+        <text x="380" y="112" class="f-paper t-mono" font-size="18" opacity=".85">G(z) · MNIST</text>
         ${noise}
-        <path d="M290 235h58" class="s-paper fx-flow" stroke-width="3" stroke-dasharray="6 6"/>
+        <path d="M290 235h58" class="s-paper fx-flow" stroke-width="3" stroke-dasharray="8 6"/>
         <path d="M340 225l12 10-12 10" class="f-none s-paper" stroke-width="3"/>
         <text x="320" y="214" text-anchor="middle" class="f-yellow t-disp" font-size="20">G</text>
         ${out}
@@ -483,7 +485,7 @@
     revealIO = new IntersectionObserver((entries) => {
       entries
         .filter((e) => e.isIntersecting)
-        .sort((a, b) => (a.boundingClientRect.top - b.boundingClientRect.top) || (a.boundingClientRect.left - b.boundingClientRect.left))
+        .sort((a, b) => { const dy = a.boundingClientRect.top - b.boundingClientRect.top; return Math.abs(dy) > 32 ? dy : a.boundingClientRect.left - b.boundingClientRect.left; })
         .forEach((e, i) => {
           e.target.style.setProperty('--rv-d', `${Math.min(i * 70, 350)}ms`);
           reveal(e.target);
@@ -638,6 +640,7 @@
      Navigation: solid after the cover, hides while reading down,
      scrollspy, reading progress, and a diagonal page-turn for long jumps
      --------------------------------------------------------------------- */
+  let strandLen = 0, fracs = [];
   const nav = $('#nav');
   let lastY = window.scrollY, navTick = false;
   function onScroll() {
@@ -675,14 +678,18 @@
     if (!target.hasAttribute('tabindex')) target.setAttribute('tabindex', '-1');
     target.focus({ preventScroll: true });
   }
-  function navigateTo(hash) {
+  function willPageTurn(hash) {
+    const target = hash && hash.length > 1 ? document.getElementById(hash.slice(1)) : null;
+    return !!target && isFull() && typeof document.startViewTransition === 'function' && Math.abs(target.getBoundingClientRect().top) > window.innerHeight * 1.5;
+  }
+  function navigateTo(hash, opts = {}) {
     const target = hash && hash.length > 1 ? document.getElementById(hash.slice(1)) : null;
     if (!target) return;
-    const far = Math.abs(target.getBoundingClientRect().top) > window.innerHeight * 1.5;
-    const jump = () => { target.scrollIntoView({ behavior: 'instant', block: 'start' }); focusTarget(target); };
-    if (isFull() && far && typeof document.startViewTransition === 'function') {
+    const jump = () => { if (opts.before) opts.before(); target.scrollIntoView({ behavior: 'instant', block: 'start' }); focusTarget(target); };
+    if (willPageTurn(hash)) {
       document.startViewTransition(jump);
     } else {
+      if (opts.before) opts.before();
       target.scrollIntoView({ behavior: isFull() ? 'smooth' : 'auto', block: 'start' });
       focusTarget(target);
     }
@@ -719,7 +726,9 @@
     const link = e.target.closest('a[href^="#"]');
     if (!link) return;
     e.preventDefault();
-    closeMenu(() => navigateTo(link.hash));
+    // a long jump closes the menu inside the page-turn; a short one plays the band exit first
+    if (willPageTurn(link.hash)) navigateTo(link.hash, { before: () => menu.close() });
+    else closeMenu(() => navigateTo(link.hash));
   });
 
   /* ---------------------------------------------------------------------
@@ -746,6 +755,7 @@
     if (replay) {
       replay.setAttribute('aria-disabled', String(!on));
       if (on) replay.removeAttribute('data-tip'); else replay.dataset.tip = 'Turn FX on to replay';
+      $('#replay-hint').textContent = on ? '' : 'Turn FX on to replay the cover.';
     }
   }
   function applyMotion(level) {
@@ -764,16 +774,23 @@
     }
     updateStrand();
   }
-  fxBtn.addEventListener('click', () => {
-    const next = isFull() ? 'calm' : 'full';
-    try { localStorage.setItem('nv-motion', JSON.stringify({ m: next, os: osMotion() })); } catch (e) { /* storage unavailable */ }
-    applyMotion(next);
+  safe('fx', () => {
+    fxBtn.addEventListener('click', () => {
+      const next = isFull() ? 'calm' : 'full';
+      try { localStorage.setItem('nv-motion', JSON.stringify({ m: next, os: osMotion() })); } catch (e) { /* storage unavailable */ }
+      applyMotion(next);
+    });
+    onMQChange(reduceMQ, () => {
+      const saved = readSaved();
+      const level = saved && saved.os === osMotion() ? saved.m : (reduceMQ.matches ? 'calm' : 'full');
+      if (level !== root.dataset.motion) applyMotion(level); else syncFx();
+    });
   });
-  reduceMQ.addEventListener('change', () => {
-    const saved = readSaved();
-    const level = saved && saved.os === osMotion() ? saved.m : (reduceMQ.matches ? 'calm' : 'full');
-    if (level !== root.dataset.motion) applyMotion(level); else syncFx();
-  });
+
+  // Tooltips can be dismissed with Escape (WCAG 1.4.13) and come back on the next focus move.
+  document.addEventListener('keydown', (e) => { if (e.key === 'Escape') root.classList.add('tips-off'); });
+  document.addEventListener('focusin', () => root.classList.remove('tips-off'));
+  document.addEventListener('pointermove', () => root.classList.remove('tips-off'), { passive: true });
 
   /* ---------------------------------------------------------------------
      Projects: filters (race-safe, cards glide to new slots), tilt, files
@@ -783,7 +800,7 @@
   const chips = $$('.chip');
   const filterStatus = $('#filter-status');
   let activeFilter = 'all', filterGen = 0, gridT = 0;
-  chips.forEach((chip) => {
+  safe('filters', () => chips.forEach((chip) => {
     chip.addEventListener('click', () => {
       const f = chip.dataset.filter;
       if (f === activeFilter) return;
@@ -828,9 +845,9 @@
         });
       }, 180);
     });
-  });
+  }));
 
-  cards.forEach((card) => {
+  safe('cards', () => cards.forEach((card) => {
     card.addEventListener('pointermove', (e) => {
       if (!isFull() || e.pointerType !== 'mouse') return;
       const b = card.getBoundingClientRect();
@@ -839,13 +856,13 @@
       card.style.setProperty('--rx', `${f1(-py * 5)}deg`);
     });
     card.addEventListener('pointerleave', () => { card.style.setProperty('--rx', '0deg'); card.style.setProperty('--ry', '0deg'); });
-    // the whole card opens its file, except its own links and buttons
+    // the whole card opens its file, except its own links and buttons, or a text selection
     card.addEventListener('click', (e) => {
-      if (e.target.closest('a, button')) return;
+      if (e.target.closest('a, button') || String(window.getSelection()).trim()) return;
       const btn = $('[data-open]', card);
       if (btn) btn.click();
     });
-  });
+  }));
 
   const modal = $('#modal');
   const modalBody = $('#modal-body');
@@ -921,7 +938,6 @@
   /* ---------------------------------------------------------------------
      Power system: constellation of ARIA tabs
      --------------------------------------------------------------------- */
-  const powersList = $('#powers');
   const powers = $$('#powers .power');
   const constEl = $('#constellation');
   const constSvg = $('#const-svg');
@@ -933,7 +949,6 @@
     const angles = [-90, -30, 30, 90, 150, 210];
     const BRIDGES = [['vision', 'trust'], ['graph', 'trust'], ['genai', 'ship'], ['data', 'trust'], ['vision', 'graph'], ['data', 'ship']];
     const nodes = {};
-    powersList.setAttribute('role', 'none');
 
     powers.forEach((li, i) => {
       const a = angles[i] * Math.PI / 180;
@@ -966,7 +981,8 @@
       let g = `<path class="edge edge--core" d="M${CX} ${CY}L${f1(nd.x)} ${f1(nd.y)}"/>`;
       sats.forEach((label, k) => {
         const off = (k - (sats.length - 1) / 2) * 38 * Math.PI / 180;
-        const d = (k % 2 ? 136 : 100) * (isBottom ? .86 : 1);
+        const down = !isBottom && Math.sin(nd.a + off) > .55;
+        const d = (k % 2 ? 136 : 100) * (isBottom ? .86 : 1) + (down ? 56 : 0);
         const sx = nd.x + Math.cos(nd.a + off) * d, sy = nd.y + Math.sin(nd.a + off) * d;
         const below = Math.sin(nd.a + off) > -.25;
         g += `<path class="edge edge--sat" d="M${f1(nd.x)} ${f1(nd.y)}L${f1(sx)} ${f1(sy)}"/>`;
@@ -1009,7 +1025,9 @@
       powers.forEach((li) => {
         const on = li.dataset.key === key;
         li.classList.toggle('is-active', on);
-        if (on) li.removeAttribute('hidden'); else li.setAttribute('hidden', 'until-found');
+        li.tabIndex = on ? 0 : -1;
+        if (on) { li.removeAttribute('hidden'); li.removeAttribute('aria-hidden'); }
+        else { li.setAttribute('hidden', 'until-found'); li.setAttribute('aria-hidden', 'true'); }
         if (on && user) { li.classList.remove('is-swapped'); void li.offsetWidth; li.classList.add('is-swapped'); }
       });
     };
@@ -1027,6 +1045,8 @@
       tabs[j].focus();
     });
     activatePower('trust', false);
+    // shown only now, so the arming check below measures a laid-out box
+    root.classList.add('js-ready');
 
     // boot sequence once the constellation scrolls in: nodes start dim, never hidden
     onReveal.set(constEl, () => {
@@ -1047,7 +1067,6 @@
   const ghost = $('.strand-ghost', strand);
   const live = $('.strand-live', strand);
   const frames = $$('.frame', strip);
-  let strandLen = 0, fracs = [];
   function layoutStrand() {
     const framesEl = $('.frames', strip);
     const pts = frames.map((li) => {
@@ -1104,19 +1123,30 @@
     deckPrev.hidden = deckNext.hidden = !scroller;
     deckCount.textContent = scroller ? `${deckIndex + 1} / ${deckCards.length}` : '';
   }
+  const deckStep = () => deckCards[0].offsetWidth + (parseFloat(getComputedStyle(deck).columnGap) || 0);
+  let deckTarget = -1, deckTargetT = 0;
   function stepDeck(dir) {
-    const gap = parseFloat(getComputedStyle(deck).columnGap) || 0;
-    deck.scrollBy({ left: dir * (deckCards[0].offsetWidth + gap), behavior: isFull() ? 'smooth' : 'auto' });
+    deckTarget = clamp((deckTarget < 0 ? deckIndex : deckTarget) + dir, 0, deckCards.length - 1);
+    deck.scrollTo({ left: deckTarget * deckStep(), behavior: isFull() ? 'smooth' : 'auto' });
+    clearTimeout(deckTargetT);
+    deckTargetT = setTimeout(() => { deckTarget = -1; }, 700);
+  }
+  function resyncDeck() {
+    if (deckMQ.matches) {
+      deckIndex = deck.scrollLeft >= deck.scrollWidth - deck.clientWidth - 2 ? deckCards.length - 1 : clamp(Math.round(deck.scrollLeft / deckStep()), 0, deckCards.length - 1);
+    }
+    syncDeck();
   }
   deckPrev.addEventListener('click', () => stepDeck(-1));
   deckNext.addEventListener('click', () => stepDeck(1));
   if ('IntersectionObserver' in window) {
     const deckIO = new IntersectionObserver((entries) => {
+      if (!deckMQ.matches) return;
       entries.forEach((e) => { if (e.isIntersecting) { deckIndex = deckCards.indexOf(e.target); syncDeck(); } });
     }, { root: deck, threshold: .6 });
     deckCards.forEach((c) => deckIO.observe(c));
   }
-  deckMQ.addEventListener('change', syncDeck);
+  onMQChange(deckMQ, resyncDeck);
 
   /* ---------------------------------------------------------------------
      Contact: copy email, compose a message, optional direct delivery
@@ -1176,6 +1206,7 @@
   }
   fields.forEach((el) => el.addEventListener('input', () => {
     if (el === msgField) msgCount.textContent = `${el.value.length} / ${el.maxLength}`;
+    if (!result.hidden) result.hidden = true;
     if (el.closest('.field').classList.contains('is-invalid')) showError(el, checks[el.name](el.value));
   }));
   function endpointURL() {
@@ -1269,9 +1300,23 @@
   if (document.fonts && document.fonts.ready) document.fonts.ready.then(() => { safe('strand', layoutStrand); measureScroll(); });
   safe('deep link', () => {
     const k = new URLSearchParams(location.search).get('project');
-    if (k && document.getElementById(`tpl-${k}`)) openProject(k, { push: false });
+    if (!k || !document.getElementById(`tpl-${k}`)) return;
+    openProject(k, { push: false });
+    // a #fragment in the link scrolls after this and blurs the dialog; put focus back
+    window.addEventListener('load', () => {
+      if (modal.open && !modal.contains(document.activeElement)) $('.modal-close', modal).focus({ preventScroll: true });
+    }, { once: true });
   });
-  root.classList.add('js-ready');
+  // The page height changes with filters, tab swaps and the form; keep the progress strip honest.
+  if ('ResizeObserver' in window) {
+    let roT = 0;
+    new ResizeObserver(() => { cancelAnimationFrame(roT); roT = requestAnimationFrame(measureScroll); }).observe(document.body);
+  }
+  // Loops in the contact portal and the constellation pause while off screen.
+  if ('IntersectionObserver' in window) {
+    const offIO = new IntersectionObserver((entries) => entries.forEach((e) => e.target.classList.toggle('is-offscreen', !e.isIntersecting)));
+    $$('.contact-portal, #constellation').forEach((el) => offIO.observe(el));
+  }
 
   let resizeT = 0;
   window.addEventListener('resize', () => {
@@ -1279,7 +1324,7 @@
     resizeT = setTimeout(() => {
       safe('particles', () => { sizeCanvas(); drawParticles(0); });
       safe('strand', layoutStrand);
-      safe('deck', syncDeck);
+      safe('deck', resyncDeck);
       measureScroll();
     }, 150);
   });

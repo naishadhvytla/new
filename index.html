@@ -28,7 +28,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Anton&family=IBM+Plex+Mono:wght@400;500;600&family=Permanent+Marker&family=Sora:wght@400;600;700&display=swap">
-<link rel="stylesheet" href="css/style.css?v=20261019">
+<link rel="stylesheet" href="css/style.css?v=20261019-2">
 <script>
   /* Decide the motion level before first paint so the cover never flashes.
      A saved FX choice only applies while the OS motion setting is the one it was made under. */
@@ -47,7 +47,7 @@
     root.classList.add('js');
   })();
 </script>
-<noscript><style>.nav{position:absolute}.nav-links{display:block!important}.nav-links ul{flex-wrap:wrap}.menu-btn,.fx-toggle{display:none!important}</style></noscript>
+<noscript><style>.nav{position:absolute}@media (max-width:1180px){.nav{position:relative;flex-wrap:wrap}.hero{padding-top:24px}}.nav-links{display:block!important}.nav-links ul{flex-wrap:wrap}.menu-btn,.fx-toggle{display:none!important}</style></noscript>
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -111,7 +111,7 @@
     </ul>
   </nav>
   <div class="nav-tools">
-    <button class="fx-toggle mono" id="fx-toggle" type="button" aria-pressed="true" data-tip="Turn animation off">
+    <button class="fx-toggle mono" id="fx-toggle" type="button" aria-pressed="true" aria-label="FX animation" data-tip="Turn animation off">
       <span class="fx-dot" aria-hidden="true"></span>FX <span class="fx-state">On</span>
     </button>
     <button class="menu-btn mono" id="menu-btn" type="button" aria-haspopup="dialog" aria-controls="menu" aria-expanded="false">
@@ -522,44 +522,44 @@
         <svg class="const-svg" id="const-svg" viewBox="0 0 1000 820" aria-hidden="true"></svg>
         <div class="power-nav" id="power-nav" role="tablist" aria-label="Skill clusters"></div>
       </div>
-      <ul class="powers" id="powers">
-        <li class="power" id="power-genai" data-key="genai" data-short="GenAI" data-sat="LLMs|RAG|LangChain|FAISS|LLaMA 3" data-icon="i-genai" style="--c: var(--cyan)">
+      <div class="powers" id="powers">
+        <div class="power" id="power-genai" data-key="genai" data-short="GenAI" data-sat="LLMs|RAG|LangChain|FAISS|LLaMA 3" data-icon="i-genai" style="--c: var(--cyan)">
           <h3 class="power-name">Generative AI &amp; LLMs</h3>
           <p class="power-desc">Retrieval pipelines and local LLM apps that keep data private.</p>
           <ul class="power-skills mono"><li>LLMs</li><li>RAG</li><li>LangChain</li><li>FAISS</li><li>LLaMA 3</li><li>Ollama</li><li>Hugging Face Transformers</li><li>NLP</li><li>Embeddings</li><li>Prompt engineering</li></ul>
           <p class="power-proof mono">Used in: <button type="button" class="proof-link" data-open="rag">RAG Document QA</button>, <button type="button" class="proof-link" data-open="screener">AI Resume Screener</button></p>
-        </li>
-        <li class="power" id="power-vision" data-key="vision" data-short="Vision" data-sat="PyTorch|ViT|Grad-CAM++|Swin|EVA-02" data-icon="i-vision" style="--c: var(--magenta)">
+        </div>
+        <div class="power" id="power-vision" data-key="vision" data-short="Vision" data-sat="PyTorch|ViT|Grad-CAM++|Swin|EVA-02" data-icon="i-vision" style="--c: var(--magenta)">
           <h3 class="power-name">Vision &amp; deep learning</h3>
           <p class="power-desc">Fine-tuning large vision backbones and explaining what they look at.</p>
           <ul class="power-skills mono"><li>PyTorch</li><li>TensorFlow</li><li>timm</li><li>ViT</li><li>Swin</li><li>EVA-02</li><li>SigLIP</li><li>Transfer learning</li><li>Fine-tuning</li><li>bf16 mixed precision</li><li>TTA</li><li>Grad-CAM++</li><li>OpenCV</li></ul>
           <p class="power-proof mono">Used in: <a href="#paper-btfusevit">BTFuseViT</a></p>
-        </li>
-        <li class="power" id="power-trust" data-key="trust" data-short="Trust" data-sat="Temp. scaling|ECE|Brier|NLL|Bootstrap" data-icon="i-trust" style="--c: var(--yellow)">
+        </div>
+        <div class="power" id="power-trust" data-key="trust" data-short="Trust" data-sat="Temp. scaling|ECE|Brier|NLL|Bootstrap" data-icon="i-trust" style="--c: var(--yellow)">
           <h3 class="power-name">Trustworthy ML</h3>
           <p class="power-desc">Checking whether a model’s confidence means anything, and fixing it when it doesn’t.</p>
           <ul class="power-skills mono"><li>Temperature scaling</li><li>ECE</li><li>Brier score</li><li>NLL</li><li>Reliability diagrams</li><li>Bootstrap CIs</li><li>MC dropout</li><li>Label smoothing</li><li>Focal loss</li></ul>
           <p class="power-proof mono">Used in: <a href="#paper-calibration">calibration study (first author)</a>, <a href="#paper-btfusevit">BTFuseViT</a></p>
-        </li>
-        <li class="power" id="power-graph" data-key="graph" data-short="Graphs" data-sat="VAE|ST-GCN|LSTM|Graph RL|WGAN-GP" data-icon="i-graph" style="--c: var(--crimson)">
+        </div>
+        <div class="power" id="power-graph" data-key="graph" data-short="Graphs" data-sat="VAE|ST-GCN|LSTM|GNNs|WGAN-GP" data-icon="i-graph" style="--c: var(--crimson)">
           <h3 class="power-name">Graphs, sequences &amp; generative</h3>
-          <p class="power-desc">Models for skeletons, UAV navigation, text and images.</p>
-          <ul class="power-skills mono"><li>ST-GCN</li><li>Graph neural networks</li><li>Graph RL</li><li>Reinforcement learning</li><li>LSTMs</li><li>N-gram / HMM</li><li>DCGAN</li><li>WGAN-GP</li><li>VAEs</li><li>Transformers</li></ul>
-          <p class="power-proof mono">Used in: <a href="#paper-hgrl-atn">HGRL-ATN</a>, <a href="#paper-calibration">calibration study</a>, <button type="button" class="proof-link" data-open="gen">generative experiments</button></p>
-        </li>
-        <li class="power" id="power-data" data-key="data" data-short="Data" data-sat="sklearn|pandas|NumPy|EDA|Stats" data-icon="i-data" style="--c: var(--paper)">
+          <p class="power-desc">Models for skeletons, text and images.</p>
+          <ul class="power-skills mono"><li>ST-GCN</li><li>Graph neural networks</li><li>Reinforcement learning</li><li>LSTMs</li><li>N-gram / HMM</li><li>DCGAN</li><li>WGAN-GP</li><li>VAEs</li><li>Transformers</li></ul>
+          <p class="power-proof mono">Used in: <a href="#paper-calibration">calibration study</a>, <button type="button" class="proof-link" data-open="gen">generative experiments</button></p>
+        </div>
+        <div class="power" id="power-data" data-key="data" data-short="Data" data-sat="sklearn|pandas|NumPy|EDA|Stats" data-icon="i-data" style="--c: var(--paper)">
           <h3 class="power-name">ML &amp; data</h3>
           <p class="power-desc">The fundamentals: clean data, solid baselines, honest evaluation.</p>
           <ul class="power-skills mono"><li>scikit-learn</li><li>pandas</li><li>NumPy</li><li>EDA</li><li>Classification</li><li>Regression</li><li>Statistical testing</li><li>Model evaluation</li></ul>
           <p class="power-proof mono">Used in: <a href="#timeline-intern">Smart Swift internship</a>, <button type="button" class="proof-link" data-open="clarity">Clarity</button></p>
-        </li>
-        <li class="power" id="power-ship" data-key="ship" data-short="Ship" data-sat="Python|SQL|JS|Supabase|LaTeX" data-icon="i-ship" style="--c: var(--violet)">
+        </div>
+        <div class="power" id="power-ship" data-key="ship" data-short="Ship" data-sat="Python|SQL|JS|Supabase|LaTeX" data-icon="i-ship" style="--c: var(--violet)">
           <h3 class="power-name">Engineering &amp; shipping</h3>
           <p class="power-desc">Getting work out of a notebook and in front of people.</p>
           <ul class="power-skills mono"><li>Python</li><li>SQL</li><li>JavaScript</li><li>HTML/CSS</li><li>Streamlit</li><li>Supabase</li><li>Netlify</li><li>Git/GitHub</li><li>Colab</li><li>LaTeX</li></ul>
           <p class="power-proof mono">Used in: <button type="button" class="proof-link" data-open="clarity">Clarity</button>, <a href="#timeline-hackathon">VISA hackathon app</a>, <button type="button" class="proof-link" data-open="screener">AI Resume Screener</button> (Streamlit), <a href="#paper-calibration">calibration pipeline</a> (Colab), <a href="#paper-btfusevit">BTFuseViT manuscript</a> (LaTeX)</p>
-        </li>
-      </ul>
+        </div>
+      </div>
     </div>
   </div>
 </section>
@@ -582,7 +582,7 @@
         <li class="frame rv" style="--sfx: var(--cyan)">
           <span class="marker mono"><time datetime="2023-07">Jul 2023</time></span>
           <h3 class="frame-title">Origin</h3>
-          <p>Started a B.Tech in Electronics and Communication Engineering at KL University, later specializing in Generative AI and Machine Learning.</p>
+          <p>Started a B.Tech in Electronics and Communication Engineering at KL University, specializing in Generative AI and Machine Learning.</p>
           <span class="sfx" aria-hidden="true">Begin!</span>
         </li>
         <li class="frame frame--big rv" id="timeline-intern" style="--sfx: var(--yellow)">
@@ -618,10 +618,10 @@
         </li>
         <li class="frame frame--now rv" id="timeline-now" style="--sfx: var(--yellow)">
           <span class="marker mono"><time datetime="2026-07">Jul 2026</time>–present</span>
-          <span class="now-tag mono">Now</span>
+          <span class="now-tag mono">Current role</span>
           <h3 class="frame-title">AI Trainee</h3>
           <p class="frame-org mono">Calibo AI Academy</p>
-          <span class="sfx" aria-hidden="true">Training!</span>
+          <span class="sfx" aria-hidden="true">Now!</span>
         </li>
         <li class="frame frame--next rv" style="--sfx: var(--magenta)">
           <span class="marker mono"><time datetime="2027">2027</time></span>
@@ -779,7 +779,7 @@
     </ul>
     <p class="mono footer-meta">© 2026 Naishadh Vytla · Original artwork and code, drawn in HTML, CSS and JavaScript.</p>
     <div class="footer-actions">
-      <button class="link-arrow mono replay" type="button" id="replay-cover">Replay the cover <span class="badge">1.3 s</span></button>
+      <button class="link-arrow mono replay" type="button" id="replay-cover" aria-describedby="replay-hint">Replay the cover <span class="badge">1.3 s</span></button><span class="sr-only" id="replay-hint"></span>
       <a class="link-arrow mono" href="#cover">Back to the cover <span aria-hidden="true">↑</span></a>
     </div>
   </div>
@@ -790,10 +790,10 @@
     <div class="modal-art" aria-hidden="true"></div>
     <div class="modal-body" id="modal-body"></div>
     <p class="sr-only" role="status" id="modal-status"></p>
-    <button class="icon-btn modal-close" type="button" data-close aria-label="Close project"><svg aria-hidden="true"><use href="#i-close"/></svg></button>
   </div>
+  <button class="icon-btn modal-close" type="button" data-close aria-label="Close project"><svg aria-hidden="true"><use href="#i-close"/></svg></button>
 </dialog>
 
-<script src="js/main.js?v=20261019"></script>
+<script src="js/main.js?v=20261019-2"></script>
 </body>
 </html>
