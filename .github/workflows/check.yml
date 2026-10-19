@@ -1,0 +1,41 @@
+name: Check site
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Validate HTML
+        run: npx --yes html-validate@9.4.1 index.html 404.html
+
+      - name: Check internal links and anchors
+        uses: lycheeverse/lychee-action@v2
+        with:
+          args: --offline --include-fragments --no-progress index.html 404.html
+          fail: true
+
+      - name: Report external links (warning only)
+        uses: lycheeverse/lychee-action@v2
+        with:
+          args: --no-progress --max-retries 2 --accept 200,429,999 index.html
+          fail: false
+
+      - name: Install smoke-test tools
+        run: |
+          npm install --no-save playwright@1.56.1 @axe-core/playwright@4.10.1
+          npx playwright install --with-deps chromium
+
+      - name: Smoke test (390 and 1440 px, FX on and off)
+        run: |
+          python3 -m http.server 8080 --bind 127.0.0.1 &
+          sleep 1
+          node tests/smoke.mjs http://127.0.0.1:8080/
