@@ -69,7 +69,7 @@ The motion follows the motion-design skill's framework: one personality, one sig
 | Constant | Value |
 | --- | --- |
 | Personality | Energetic for 90% of the site; the research chapter borrows Premium (slower, no overshoot) |
-| Signature easing | `cubic-bezier(.16, 1, .3, 1)` (expo-out) for entrances; expo-in for exits |
+| Signature easing | `cubic-bezier(.16, 1, .3, 1)` (expo-out) for entrances; `cubic-bezier(.3, 0, 1, 1)` (accelerate) for exits |
 | Durations | 100ms hover/press, 180ms standard, 300ms slow; reveals 620ms for chapter heads and 460ms for cards (500/380ms on phones) |
 | Entrance | Elements wait slightly out of register and snap into place while their red and cyan plates converge; each batch staggers from its own first element |
 | "On twos" | Type, stamps, SFX bursts, the web ink-in and the glitch are keyframed pose to pose with `steps(1, end)`, one pose per 83ms. Panels and parallax stay smooth |

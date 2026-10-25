@@ -714,21 +714,23 @@
     menu.classList.add('is-closing');
     setTimeout(done, 280);
   }
-  menuBtn.addEventListener('click', () => {
-    if (typeof menu.showModal !== 'function') return;
-    menu.showModal();
-    menuBtn.setAttribute('aria-expanded', 'true');
-  });
-  menu.addEventListener('close', () => menuBtn.setAttribute('aria-expanded', 'false'));
-  menu.addEventListener('cancel', (e) => { e.preventDefault(); closeMenu(); });
-  menu.addEventListener('click', (e) => {
-    if (e.target.closest('[data-close]')) { closeMenu(); return; }
-    const link = e.target.closest('a[href^="#"]');
-    if (!link) return;
-    e.preventDefault();
-    // a long jump closes the menu inside the page-turn; a short one plays the band exit first
-    if (willPageTurn(link.hash)) navigateTo(link.hash, { before: () => menu.close() });
-    else closeMenu(() => navigateTo(link.hash));
+  safe('menu', () => {
+    menuBtn.addEventListener('click', () => {
+      if (typeof menu.showModal !== 'function') return;
+      menu.showModal();
+      menuBtn.setAttribute('aria-expanded', 'true');
+    });
+    menu.addEventListener('close', () => menuBtn.setAttribute('aria-expanded', 'false'));
+    menu.addEventListener('cancel', (e) => { e.preventDefault(); closeMenu(); });
+    menu.addEventListener('click', (e) => {
+      if (e.target.closest('[data-close]')) { closeMenu(); return; }
+      const link = e.target.closest('a[href^="#"]');
+      if (!link) return;
+      e.preventDefault();
+      // a long jump closes the menu inside the page-turn; a short one plays the band exit first
+      if (willPageTurn(link.hash)) navigateTo(link.hash, { before: () => menu.close() });
+      else closeMenu(() => navigateTo(link.hash));
+    });
   });
 
   /* ---------------------------------------------------------------------
@@ -911,28 +913,30 @@
       else if (new URLSearchParams(location.search).has('project')) history.replaceState(null, '', location.pathname + location.hash);
     } catch (e) { /* sandboxed history */ }
   }
-  document.addEventListener('click', (e) => {
-    const b = e.target.closest('[data-open]');
-    if (b) openProject(b.dataset.open, { opener: b });
-  });
-  modal.addEventListener('cancel', (e) => { e.preventDefault(); closeModal(); });
-  modal.addEventListener('click', (e) => {
-    if (e.target === modal || e.target.closest('[data-close]')) { closeModal(); return; }
-    const copy = e.target.closest('[data-copy-link]');
-    if (!copy) return;
-    const lbl = $('span', copy);
-    copyText(location.href, null).then((ok) => {
-      modalStatus.textContent = ok ? 'Link to this file copied.' : 'Copy failed. Use your browser’s address bar to share this file.';
-      lbl.textContent = ok ? 'Link copied' : 'Copy failed';
-      clearTimeout(linkT);
-      linkT = setTimeout(() => { lbl.textContent = 'Copy link'; }, 2000);
+  safe('project files', () => {
+    document.addEventListener('click', (e) => {
+      const b = e.target.closest('[data-open]');
+      if (b) openProject(b.dataset.open, { opener: b });
     });
-  });
-  modal.addEventListener('close', () => { if (opener && document.contains(opener)) opener.focus(); });
-  window.addEventListener('popstate', () => {
-    const k = new URLSearchParams(location.search).get('project');
-    if (k && document.getElementById(`tpl-${k}`)) { if (!modal.open) openProject(k, { push: false }); }
-    else if (modal.open) closeModal(true);
+    modal.addEventListener('cancel', (e) => { e.preventDefault(); closeModal(); });
+    modal.addEventListener('click', (e) => {
+      if (e.target === modal || e.target.closest('[data-close]')) { closeModal(); return; }
+      const copy = e.target.closest('[data-copy-link]');
+      if (!copy) return;
+      const lbl = $('span', copy);
+      copyText(location.href, null).then((ok) => {
+        modalStatus.textContent = ok ? 'Link to this file copied.' : 'Copy failed. Use your browser’s address bar to share this file.';
+        lbl.textContent = ok ? 'Link copied' : 'Copy failed';
+        clearTimeout(linkT);
+        linkT = setTimeout(() => { lbl.textContent = 'Copy link'; }, 2000);
+      });
+    });
+    modal.addEventListener('close', () => { if (opener && document.contains(opener)) opener.focus(); });
+    window.addEventListener('popstate', () => {
+      const k = new URLSearchParams(location.search).get('project');
+      if (k && document.getElementById(`tpl-${k}`)) { if (!modal.open) openProject(k, { push: false }); }
+      else if (modal.open) closeModal(true);
+    });
   });
 
   /* ---------------------------------------------------------------------
@@ -1137,8 +1141,10 @@
     }
     syncDeck();
   }
-  deckPrev.addEventListener('click', () => stepDeck(-1));
-  deckNext.addEventListener('click', () => stepDeck(1));
+  safe('deck buttons', () => {
+    deckPrev.addEventListener('click', () => stepDeck(-1));
+    deckNext.addEventListener('click', () => stepDeck(1));
+  });
   if ('IntersectionObserver' in window) {
     const deckIO = new IntersectionObserver((entries) => {
       if (!deckMQ.matches) return;
@@ -1171,12 +1177,14 @@
     selectFallback(fallbackEl);
     return Promise.resolve(false);
   }
-  $('#copy-email').addEventListener('click', () => {
-    copyText(EMAIL, $('#email-text')).then((ok) => {
-      copyStatus.textContent = ok ? 'Email address copied.' : 'Email address selected. Press Ctrl+C or Cmd+C to copy.';
-      if (!ok) return;
-      burst.classList.remove('is-off'); burst.classList.add('is-on');
-      setTimeout(() => { burst.classList.remove('is-on'); burst.classList.add('is-off'); }, 1300);
+  safe('copy email', () => {
+    $('#copy-email').addEventListener('click', () => {
+      copyText(EMAIL, $('#email-text')).then((ok) => {
+        copyStatus.textContent = ok ? 'Email address copied.' : 'Email address selected. Press Ctrl+C or Cmd+C to copy.';
+        if (!ok) return;
+        burst.classList.remove('is-off'); burst.classList.add('is-on');
+        setTimeout(() => { burst.classList.remove('is-on'); burst.classList.add('is-off'); }, 1300);
+      });
     });
   });
 
@@ -1204,11 +1212,13 @@
     field.classList.toggle('is-invalid', !!msg);
     if (msg) { field.classList.remove('is-shaking'); void field.offsetWidth; field.classList.add('is-shaking'); }
   }
-  fields.forEach((el) => el.addEventListener('input', () => {
-    if (el === msgField) msgCount.textContent = `${el.value.length} / ${el.maxLength}`;
-    if (!result.hidden) result.hidden = true;
-    if (el.closest('.field').classList.contains('is-invalid')) showError(el, checks[el.name](el.value));
-  }));
+  safe('composer input', () => {
+    fields.forEach((el) => el.addEventListener('input', () => {
+      if (el === msgField) msgCount.textContent = `${el.value.length} / ${el.maxLength}`;
+      if (!result.hidden) result.hidden = true;
+      if (el.closest('.field').classList.contains('is-invalid')) showError(el, checks[el.name](el.value));
+    }));
+  });
   function endpointURL() {
     try { const u = new URL(form.dataset.endpoint || ''); return u.protocol === 'https:' ? u.href : ''; } catch (e) { return ''; }
   }
@@ -1222,68 +1232,72 @@
     result.hidden = false;
     result.focus();
   }
-  form.addEventListener('submit', (e) => {
-    e.preventDefault();
-    if ($('#f-gotcha').value) return;
-    let first = null;
-    fields.forEach((el) => {
-      const msg = checks[el.name](el.value);
-      showError(el, msg);
-      if (msg && !first) first = el;
+  safe('composer', () => {
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      if ($('#f-gotcha').value) return;
+      let first = null;
+      fields.forEach((el) => {
+        const msg = checks[el.name](el.value);
+        showError(el, msg);
+        if (msg && !first) first = el;
+      });
+      if (first) { first.focus(); return; }
+      const btn = $('.btn--submit', form);
+      const label = $('.btn-label', btn);
+      const name = form.elements.name.value.trim(), from = form.elements.email.value.trim(), msg = msgField.value.trim();
+      const subject = `Hello from ${name}`;
+      composed = `${msg}\n\n${name}\n${from}`;
+      $('span', copyMsg).textContent = 'Copy message';
+      btn.classList.add('is-busy'); btn.disabled = true; label.textContent = 'Writing';
+      const finish = () => { btn.classList.remove('is-busy'); btn.disabled = false; label.textContent = 'Write the email'; };
+      const endpoint = endpointURL();
+      if (!endpoint) {
+        setTimeout(() => { finish(); showDraft(subject, 'Your message is ready. Nothing has been sent yet. Choose how to send it:'); }, 360);
+        return;
+      }
+      label.textContent = 'Sending';
+      const ctl = new AbortController();
+      const timer = setTimeout(() => ctl.abort(), 15000);
+      fetch(endpoint, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+        body: JSON.stringify({ name, email: from, message: msg, _subject: `Portfolio: ${name}` }),
+        signal: ctl.signal,
+      }).then((r) => {
+        clearTimeout(timer); finish();
+        if (!r.ok) throw new Error(`HTTP ${r.status}`);
+        resultLead.textContent = `Message sent. I’ll reply to ${from}.`;
+        $('.result-actions', result).hidden = true;
+        $('label[for="draft"]', result).hidden = draft.hidden = $('.result-to', result).hidden = true;
+        result.hidden = false;
+        result.focus();
+        form.reset();
+        msgCount.textContent = `0 / ${msgField.maxLength}`;
+      }).catch(() => {
+        clearTimeout(timer); finish();
+        showDraft(subject, 'It couldn’t be sent from here. Your draft is below. Choose another way to send it:');
+      });
     });
-    if (first) { first.focus(); return; }
-    const btn = $('.btn--submit', form);
-    const label = $('.btn-label', btn);
-    const name = form.elements.name.value.trim(), from = form.elements.email.value.trim(), msg = msgField.value.trim();
-    const subject = `Hello from ${name}`;
-    composed = `${msg}\n\n${name}\n${from}`;
-    $('span', copyMsg).textContent = 'Copy message';
-    btn.classList.add('is-busy'); btn.disabled = true; label.textContent = 'Writing';
-    const finish = () => { btn.classList.remove('is-busy'); btn.disabled = false; label.textContent = 'Write the email'; };
-    const endpoint = endpointURL();
-    if (!endpoint) {
-      setTimeout(() => { finish(); showDraft(subject, 'Your message is ready. Nothing has been sent yet. Choose how to send it:'); }, 360);
-      return;
-    }
-    label.textContent = 'Sending';
-    const ctl = new AbortController();
-    const timer = setTimeout(() => ctl.abort(), 15000);
-    fetch(endpoint, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
-      body: JSON.stringify({ name, email: from, message: msg, _subject: `Portfolio: ${name}` }),
-      signal: ctl.signal,
-    }).then((r) => {
-      clearTimeout(timer); finish();
-      if (!r.ok) throw new Error(`HTTP ${r.status}`);
-      resultLead.textContent = `Message sent. I’ll reply to ${from}.`;
-      $('.result-actions', result).hidden = true;
-      $('label[for="draft"]', result).hidden = draft.hidden = $('.result-to', result).hidden = true;
-      result.hidden = false;
-      result.focus();
-      form.reset();
-      msgCount.textContent = `0 / ${msgField.maxLength}`;
-    }).catch(() => {
-      clearTimeout(timer); finish();
-      showDraft(subject, 'It couldn’t be sent from here. Your draft is below. Choose another way to send it:');
-    });
-  });
-  copyMsg.addEventListener('click', () => {
-    const lbl = $('span', copyMsg);
-    copyText(composed, draft).then((ok) => {
-      lbl.textContent = ok ? 'Copied' : 'Copy failed, text selected';
-      copyStatus.textContent = ok ? 'Message copied.' : 'Message selected. Press Ctrl+C or Cmd+C to copy.';
-      clearTimeout(copyMsgT);
-      copyMsgT = setTimeout(() => { lbl.textContent = 'Copy message'; }, 2000);
+    copyMsg.addEventListener('click', () => {
+      const lbl = $('span', copyMsg);
+      copyText(composed, draft).then((ok) => {
+        lbl.textContent = ok ? 'Copied' : 'Copy failed, text selected';
+        copyStatus.textContent = ok ? 'Message copied.' : 'Message selected. Press Ctrl+C or Cmd+C to copy.';
+        clearTimeout(copyMsgT);
+        copyMsgT = setTimeout(() => { lbl.textContent = 'Copy message'; }, 2000);
+      });
     });
   });
 
   // Footer: replay the cover choreography (never automatic)
-  $('#replay-cover').addEventListener('click', () => {
-    if (!isFull()) return;
-    if (window.scrollY < 40) { replayCover(); return; }
-    pendingReplay = true;
-    navigateTo('#cover');
+  safe('replay', () => {
+    $('#replay-cover').addEventListener('click', () => {
+      if (!isFull()) return;
+      if (window.scrollY < 40) { replayCover(); return; }
+      pendingReplay = true;
+      navigateTo('#cover');
+    });
   });
 
   /* ---------------------------------------------------------------------
